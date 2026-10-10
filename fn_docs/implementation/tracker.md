@@ -38,7 +38,7 @@
 - [x] load_episode_set · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(load_episode_set): wired" && echo commit 在 → commit 在 (10-10)
 
 ## B1 批间门
-- [ ] B1 · 评审三轴 — 预告: 规格/标准/档案同步（含 tracker 本批行核对）
+- [x] B1 · 评审三轴 — 证据: bash -c git log --oneline -3 | grep -q "B1" && echo "评审子代理三轴全过+债务已登记" → 评审子代理三轴全过+债务已登记 (10-10)
 - [ ] B1 · 用户裁决 — 预告: 继续 / 修订 / 裁决 blocked
 
 ## B2 — build_baseline_prompt, make_baseline_policy, connect_env, submit_action, run_episode
