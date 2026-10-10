@@ -39,7 +39,7 @@
 
 ## B1 批间门
 - [x] B1 · 评审三轴 — 证据: bash -c git log --oneline -3 | grep -q "B1" && echo "评审子代理三轴全过+债务已登记" → 评审子代理三轴全过+债务已登记 (10-10)
-- [ ] B1 · 用户裁决 — 预告: 继续 / 修订 / 裁决 blocked
+- [x] B1 · 用户裁决 — 证据: bash -c grep -q "| 2026-10-10 | B1 |" fn_docs/implementation/history.md && grep -q "▶ B2" fn_docs/implementation/batches.md && echo "B1已收档+用户裁决=继续B2" → B1已收档+用户裁决=继续B2 (10-10)
 
 ## B2 — build_baseline_prompt, make_baseline_policy, connect_env, submit_action, run_episode
 ### build_baseline_prompt
