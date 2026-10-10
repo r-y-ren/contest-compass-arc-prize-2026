@@ -3,8 +3,8 @@
 评测可复现的根基：同输入必产生逐字节相同输出——
 - 序列化用 json.dumps(sort_keys=True, separators=(",", ":"), ensure_ascii=False)，
   键序递归排序、无多余空格、中文原样保留，全部确定；
-- 结果按字符预算 budget 截断：不超预算原样返回；超预算时截去头部内容并以
-  尾标 "…[truncated]" 结尾。budget 是硬上限（len(结果) <= budget 恒成立），
+- 结果按字符预算 budget 截断：不超预算原样返回；超预算时保留头部内容、截去尾部，
+  并以尾标 "…[truncated]" 结尾。budget 是硬上限（len(结果) <= budget 恒成立），
   且预算 >= 尾标长度时截断结果恰为 budget 字符。
 """
 
@@ -15,9 +15,17 @@ import json
 # 截断尾标（长度 12：省略号 1 字符 + "[truncated]" 11 字符）。
 TRUNCATION_SUFFIX = "…[truncated]"
 
-# 观测对象必填字段集合。约定：当前为空 tuple——官方 SDK 观测形态 B2 实核后回填；
-# 回填为非空后 render_obs 将逐项校验，缺失即抛 ObsFormatError（消息带字段名）。
-REQUIRED_FIELDS: tuple = ()
+# 观测对象必填字段集合。来源：ARC-AGI-3 SDK FrameDataRaw / REST FrameResponse 九字段
+# （references/arc_agi_3_sdk.md，2026-10-10 实核）中的策略相关六字段；
+# guid / action_input / full_reset 为会话回显字段，不计必填。缺失即抛 ObsFormatError。
+REQUIRED_FIELDS: tuple = (
+    "game_id",
+    "state",
+    "frame",
+    "levels_completed",
+    "win_levels",
+    "available_actions",
+)
 
 
 class ObsFormatError(ValueError):
