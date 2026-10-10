@@ -12,7 +12,7 @@
 | build_baseline_prompt | B2 | wired 10-10 | pytest tests/make_baseline_policy/test_build_baseline_prompt.py → 7 passed（固定模板常量/render_obs 视图一致/确定性/异常透传/预算接线/模板协议守卫） | 本批 |
 | make_baseline_policy | B2 | wired 10-10 | pytest tests/make_baseline_policy/test_make_baseline_policy.py → 14 passed（构造校验/解析+确定性回退/usage 累计/异常透传/model 透传） | 本批 |
 | connect_env | B2 | wired 10-10 | pytest tests/run_episode/test_connect_env.py → 10 passed（假 SDK 注入/真 FrameDataRaw 归一化/make·reset 判空与异常包装/spec 校验） | 本批 |
-| submit_action | B2 | stub 2026-10-10 | 上游覆盖: run_episode | — |
+| submit_action | B2 | wired 10-10 | pytest tests/run_episode/test_submit_action.py → 14 passed（结构校验+错误码/None 场景归一 experiment 抛·submit 哨兵/跨模块动作名守卫） | 本批 |
 | run_episode | B2 | stub 2026-10-10 | 测试: tests/run_episode/test_run_episode.py；集成继承 R1 | — |
 | estimate_difficulty | B3 | stub 2026-10-10 | 测试: tests/make_curriculum_policy/test_estimate_difficulty.py | — |
 | select_experience_source | B3 | stub 2026-10-10 | 测试: tests/make_curriculum_policy/test_select_experience_source.py | — |

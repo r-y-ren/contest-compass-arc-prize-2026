@@ -59,12 +59,12 @@
 - [x] connect_env · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/run_episode/test_connect_env.py -q 2>&1 | tail -1 → 10 passed in 0.11s (10-10)
 - [x] connect_env · wired — 证据: bash -c grep -q "connect_env" fn_work/tests/run_episode/test_connect_env.py && echo 测试调用点在（弱判据；生产调用方 run_episode 本批下一函数落地后补验） → 测试调用点在（弱判据；生产调用方 run_episode 本批下一函数落地后补验） (10-10)
 - [x] connect_env · 清单进位 — 证据: bash -c grep -q "| connect_env | B2 | wired 10-10 |" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-10)
-- [ ] connect_env · commit — 预告: fn(connect_env): wired 含四文档变更
+- [x] connect_env · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(connect_env): wired" && echo commit 在 → commit 在 (10-10)
 ### submit_action
-- [ ] submit_action · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] submit_action · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] submit_action · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] submit_action · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] submit_action · implemented — 证据: bash -c ! grep -q "unimplemented:fn:submit_action" fn_work/src/run_episode/submit_action.py && echo 桩已替换 → 桩已替换 (10-10)
+- [x] submit_action · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/run_episode/test_submit_action.py -q 2>&1 | tail -1 → 14 passed in 0.13s (10-10)
+- [x] submit_action · wired — 证据: bash -c grep -q "submit_action" fn_work/tests/run_episode/test_submit_action.py && echo 测试调用点在（弱判据；生产调用方 run_episode 本批下一函数落地后补验） → 测试调用点在（弱判据；生产调用方 run_episode 本批下一函数落地后补验） (10-10)
+- [x] submit_action · 清单进位 — 证据: bash -c grep -q "| submit_action | B2 | wired 10-10 |" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-10)
 - [ ] submit_action · commit — 预告: fn(submit_action): wired 含四文档变更
 ### run_episode
 - [ ] run_episode · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
