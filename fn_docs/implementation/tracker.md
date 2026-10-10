@@ -23,12 +23,12 @@
 - [x] render_obs · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/shared/test_render_obs.py -q → 17 passed in 0.01s (10-10)
 - [x] render_obs · wired — 证据: bash -c grep -q "render_obs" fn_work/tests/shared/test_render_obs.py && echo 测试调用点在（Ruling 弱判据） → 测试调用点在（Ruling 弱判据） (10-10)
 - [x] render_obs · 清单进位 — 证据: bash -c grep -q "| render_obs | B1 | wired 10-10 |" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-10)
-- [ ] render_obs · commit — 预告: fn(render_obs): wired 含四文档变更
+- [x] render_obs · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(render_obs): wired" && echo commit 在 → commit 在 (10-10)
 ### append_jsonl_log
-- [ ] append_jsonl_log · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] append_jsonl_log · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] append_jsonl_log · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] append_jsonl_log · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] append_jsonl_log · implemented — 证据: bash -c ! grep -q "unimplemented:fn:append_jsonl_log" fn_work/src/shared/append_jsonl_log.py && echo 桩已替换 → 桩已替换 (10-10)
+- [x] append_jsonl_log · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/shared/test_append_jsonl_log.py -q → 6 passed in 0.01s (10-10)
+- [x] append_jsonl_log · wired — 证据: bash -c grep -q "append_jsonl_log" fn_work/tests/shared/test_append_jsonl_log.py && echo 测试调用点在（Ruling 弱判据） → 测试调用点在（Ruling 弱判据） (10-10)
+- [x] append_jsonl_log · 清单进位 — 证据: bash -c grep -q "| append_jsonl_log | B1 | wired 10-10 |" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-10)
 - [ ] append_jsonl_log · commit — 预告: fn(append_jsonl_log): wired 含四文档变更
 ### load_episode_set
 - [ ] load_episode_set · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
