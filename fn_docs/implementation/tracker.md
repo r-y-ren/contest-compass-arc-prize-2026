@@ -71,7 +71,7 @@
 - [x] run_episode · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/run_episode/test_run_episode.py -q 2>&1 | tail -1 → 7 passed in 0.13s (10-10)
 - [x] run_episode · wired — 证据: bash -c grep -q "from src.run_episode.connect_env import connect_env" fn_work/src/run_episode/run_episode.py && grep -q "submit_action(env, action, scene)" fn_work/src/run_episode/run_episode.py && grep -q ""run_id": "b2-realrun-vc33"" fn_work/logs/20261010.jsonl && grep -q ""event": "episode_end"" fn_work/logs/20261010.jsonl && echo "生产调用点+实跑产物在（真 SDK vc33 局 50 步 GAME_OVER）" → 生产调用点+实跑产物在（真 SDK vc33 局 50 步 GAME_OVER） (10-10)
 - [x] run_episode · 清单进位 — 证据: bash -c grep -q "run_episode | B2 | wired 10-10" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-10)
-- [ ] run_episode · commit — 预告: fn(run_episode): wired 含四文档变更
+- [x] run_episode · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(run_episode): wired" && echo commit 在 → commit 在 (10-10)
 
 ## B2 批间门
 - [ ] B2 · 评审三轴 — 预告: 规格/标准/档案同步（含 tracker 本批行核对）
@@ -199,3 +199,5 @@
 - Ruling: B1 四共享函数 wired 判据降级为「测试文件静态导入+实跑」 — 原因：生产调用点（make_*_policy 等）按批次计划在 B2/B3 才实现 — 代价：B1 wired 为弱判据 — 落点：B2/B3 验收点复验生产调用点 grep（batches.md 注列已同步）
 - Ruling: llm_complete 增可选参数 model=""（显式模型名覆盖端点默认） — 原因：make_baseline_policy 配置含模型名，原实现只认 ARC_MODEL 环境变量，配置无法落到请求体 — 代价：B1 已 wired 函数签名扩展（向后兼容，默认行为不变，+1 测至 10 绿） — 落点：batches.md 变更记录互指；responsibility.md 签名意图为意图级描述不改
 - 注记: B2 验收点「裸基线单局实跑」部分受阻 — 27B vLLM 服务缺位（唯一算力机 RTX 4070 Laptop 8GB 显存 < 27B FP8 权重 ~27GB+，requirements 技术栈决策的远端服务化未部署） — 已以真 SDK 在线匿名局+脚本策略实跑替代（run_id=b2-realrun-vc33，50 步 GAME_OVER，日志在库） — 待批间门用户裁决：换小模型量化/另配算力/挂账至推理服务部署后补跑
+- Ruling: EpisodeResult.outcome 扩为三值（+STEP_LIMIT）与 submit 场景 STEP_FAILED 哨兵协议 — 原因：SDK 实核 e/h——无墙钟时限须本地护栏防死循环、SDK 失败吞错误码返回 None 须场景归一（experiment 停/submit 降级保旧观测） — 代价：终局语义超出责任文档两值描述，docstring 已论证+测试覆盖 — 落点：run_episode/submit_action docstring；B4 集成验收时复核
+- Ruling: B1 四共享生产调用点复验落账（补显式证据行） — 原因：B1 Ruling 落点要求 B2 验收点复验 grep，评审已复跑确认 — 代价：无 — 落点:llm_complete@make_baseline_policy.py、render_obs@build_baseline_prompt.py、append_jsonl_log@run_episode.py、build_baseline_prompt@make_baseline_policy.py、connect_env/submit_action@run_episode.py（grep 全命中，评审报告 2026-10-10）
