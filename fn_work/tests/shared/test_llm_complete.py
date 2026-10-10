@@ -155,3 +155,14 @@ def test_load_endpoint_default_and_env(monkeypatch):
 
     monkeypatch.setenv("ARC_VLLM_BASE_URL", "gpu.box:8000/v1")  # 无 scheme 自动补 http://
     assert _load_endpoint()[0] == "http://gpu.box:8000/v1"
+
+
+def test_model_override_param_beats_endpoint_default(monkeypatch):
+    """签名微调（B2）：model 非空覆盖端点默认；空串回退环境变量/默认。"""
+    captured = _install(monkeypatch, [_ok(), _ok()])
+
+    llm_mod.llm_complete(MSGS, SAMPLING, "experiment", model="qwen3-32b")
+    assert captured[0][1]["model"] == "qwen3-32b"
+
+    llm_mod.llm_complete(MSGS, SAMPLING, "experiment", model="  ")  # 空白串回退默认
+    assert captured[1][1]["model"] == "qwen-27b-fp8"

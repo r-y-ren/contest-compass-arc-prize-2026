@@ -47,19 +47,22 @@ def _load_endpoint() -> tuple:
     return base_url, model
 
 
-def llm_complete(messages: list, sampling: dict, scene: str) -> tuple:
+def llm_complete(messages: list, sampling: dict, scene: str, model: str = "") -> tuple:
     """对远端 vLLM 服务发一次对话补全，返回 (回复文本, 用量统计 dict)。
 
     用量统计含 prompt_tokens / completion_tokens / latency_ms / attempt。
     scene=="experiment"：失败抛 LLMServiceError（含原因）；
     scene=="submit"：≤3 次尝试（指数退避），耗尽后返回 SAFE_FALLBACK 不抛。
+    model 非空时覆盖端点默认模型名（签名微调 2026-10-10：调用方配置显式指定模型；
+    空串回退 ARC_MODEL 环境变量 / 默认值，默认行为不变）。
     """
     if scene not in ("experiment", "submit"):
         raise ValueError(f"未知 scene: {scene!r}（仅支持 experiment/submit）")
 
-    base_url, model = _load_endpoint()
+    base_url, default_model = _load_endpoint()
+    effective_model = model.strip() or default_model
     url = base_url + "/chat/completions"
-    payload = {"model": model, "messages": list(messages)}
+    payload = {"model": effective_model, "messages": list(messages)}
     payload.update({k: v for k, v in (sampling or {}).items() if k not in _RESERVED_KEYS})
 
     started = time.perf_counter()

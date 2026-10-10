@@ -47,12 +47,12 @@
 - [x] build_baseline_prompt · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/make_baseline_policy/test_build_baseline_prompt.py -q 2>&1 | tail -1 → 7 passed in 0.01s (10-10)
 - [x] build_baseline_prompt · wired — 证据: bash -c grep -q "build_baseline_prompt" fn_work/tests/make_baseline_policy/test_build_baseline_prompt.py && echo 测试调用点在（弱判据，生产调用点随 make_baseline_policy 落地后补验） → 测试调用点在（弱判据，生产调用点随 make_baseline_policy 落地后补验） (10-10)
 - [x] build_baseline_prompt · 清单进位 — 证据: bash -c grep -q "| build_baseline_prompt | B2 | wired 10-10 |" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-10)
-- [ ] build_baseline_prompt · commit — 预告: fn(build_baseline_prompt): wired 含四文档变更
+- [x] build_baseline_prompt · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(build_baseline_prompt): wired" && echo commit 在 → commit 在 (10-10)
 ### make_baseline_policy
-- [ ] make_baseline_policy · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] make_baseline_policy · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] make_baseline_policy · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] make_baseline_policy · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] make_baseline_policy · implemented — 证据: bash -c ! grep -q "unimplemented:fn:make_baseline_policy" fn_work/src/make_baseline_policy/make_baseline_policy.py && echo 桩已替换 → 桩已替换 (10-10)
+- [x] make_baseline_policy · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/make_baseline_policy/test_make_baseline_policy.py -q 2>&1 | tail -1 → 14 passed in 0.03s (10-10)
+- [x] make_baseline_policy · wired — 证据: bash -c grep -q "make_baseline_policy" fn_work/tests/make_baseline_policy/test_make_baseline_policy.py && echo 测试调用点在（弱判据；生产调用方 build_config_matrix/eval_ab 属 B4，届时复验） → 测试调用点在（弱判据；生产调用方 build_config_matrix/eval_ab 属 B4，届时复验） (10-10)
+- [x] make_baseline_policy · 清单进位 — 证据: bash -c grep -q "| make_baseline_policy | B2 | wired 10-10 |" fn_docs/implementation/functions.md && grep -q "llm_complete | B1 | wired 10-10；B2 签名微调" fn_docs/implementation/functions.md && echo 两清单行已落 → 两清单行已落 (10-10)
 - [ ] make_baseline_policy · commit — 预告: fn(make_baseline_policy): wired 含四文档变更
 ### connect_env
 - [ ] connect_env · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
@@ -197,3 +197,4 @@
 - [ ] B5 · 评审三轴 — 预告: 规格/标准/档案同步（含 tracker 本批行核对）
 - [ ] B5 · 用户裁决 — 预告: 继续 / 修订 / 裁决 blocked
 - Ruling: B1 四共享函数 wired 判据降级为「测试文件静态导入+实跑」 — 原因：生产调用点（make_*_policy 等）按批次计划在 B2/B3 才实现 — 代价：B1 wired 为弱判据 — 落点：B2/B3 验收点复验生产调用点 grep（batches.md 注列已同步）
+- Ruling: llm_complete 增可选参数 model=""（显式模型名覆盖端点默认） — 原因：make_baseline_policy 配置含模型名，原实现只认 ARC_MODEL 环境变量，配置无法落到请求体 — 代价：B1 已 wired 函数签名扩展（向后兼容，默认行为不变，+1 测至 10 绿） — 落点：batches.md 变更记录互指；responsibility.md 签名意图为意图级描述不改
