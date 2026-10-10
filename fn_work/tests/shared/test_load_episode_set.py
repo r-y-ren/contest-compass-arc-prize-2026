@@ -96,3 +96,44 @@ def test_blank_id_and_missing_key_and_non_mapping(tmp_path):
     non_map = _write_cfg(tmp_path, "- just\n- a list\n", "nonmap.yaml")
     with pytest.raises(ConfigError, match="顶层必须是映射"):
         load_episode_set(non_map)
+
+
+# 局 ID 存在性校验（B2 债务①）：known_episode_ids 注入则核对，不注入则跳过
+
+
+def test_known_ids_exact_and_base_prefix_pass(tmp_path):
+    """⑨ 注入局索引：精确命中与短名基础名匹配（ls20 ↔ ls20-<版本>）均放行。"""
+    path = _write_cfg(tmp_path, "episode_ids:\n  - ls20-016295f7601e\n  - vc33\n")
+    known = ["ls20-016295f7601e", "cd82-fb555c5d", "vc33-5430563c"]
+
+    result = load_episode_set(path, known_episode_ids=known)
+
+    assert result["episode_ids"] == ["ls20-016295f7601e", "vc33"]
+
+
+def test_known_ids_unknown_id_raises_with_id(tmp_path):
+    """⑩ 注入局索引：未知局 ID → ConfigError，消息带该 ID 与已知局数。"""
+    path = _write_cfg(tmp_path, "episode_ids:\n  - ls20\n  - nope99\n")
+    known = ["ls20-016295f7601e", "cd82-fb555c5d"]
+
+    with pytest.raises(ConfigError, match=r"局 ID 不在官方 SDK 局索引中: nope99.*已知局 2 个"):
+        load_episode_set(path, known_episode_ids=known)
+
+
+def test_known_ids_version_mismatch_base_match_passes(tmp_path):
+    """⑪ 配置带版本但与已知版本不同：基础名一致仍放行（短名/换版本取最新，与 make() 规则一致）。"""
+    path = _write_cfg(tmp_path, "episode_ids:\n  - ls20-deadbeef42\n")
+    known = ["ls20-016295f7601e"]
+
+    result = load_episode_set(path, known_episode_ids=known)
+
+    assert result["episode_ids"] == ["ls20-deadbeef42"]
+
+
+def test_known_ids_none_skips_validation(tmp_path):
+    """⑫ 不注入（默认 None）：任意局 ID 放行（密闭测试/未接 SDK 场景）。"""
+    path = _write_cfg(tmp_path, "episode_ids:\n  - totally-unknown-game\n")
+
+    result = load_episode_set(path)
+
+    assert result["episode_ids"] == ["totally-unknown-game"]
