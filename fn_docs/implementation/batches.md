@@ -13,3 +13,4 @@
 | 日期 | 事件 | 说明 |
 |---|---|---|
 | 2026-10-10 | 新增改动登记 | B1 附 scaffold 占位测试补 import pytest（进入对账发现：26 个收集期 NameError 遮蔽测试基线） |
+| 2026-10-10 | Ruling 互指 | B1 共享件 wired 判据降级（详见 tracker Ruling 行）：B2/B3 接线时复验生产调用点 |

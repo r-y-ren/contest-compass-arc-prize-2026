@@ -5,7 +5,7 @@
 
 | 函数 | 批次 | 状态(日期) | 核验命令+摘要 | commit |
 |---|---|---|---|---|
-| llm_complete | B1 | stub 2026-10-10 | 测试: tests/shared/test_llm_complete.py | — |
+| llm_complete | B1 | wired 10-10 | pytest tests/shared/test_llm_complete.py → 9 passed（experiment 抛错/submit 重试降级全覆盖） | 本批 |
 | render_obs | B1 | stub 2026-10-10 | 测试: tests/shared/test_render_obs.py | — |
 | append_jsonl_log | B1 | stub 2026-10-10 | 测试: tests/shared/test_append_jsonl_log.py | — |
 | load_episode_set | B1 | stub 2026-10-10 | 测试: tests/shared/test_load_episode_set.py | — |
