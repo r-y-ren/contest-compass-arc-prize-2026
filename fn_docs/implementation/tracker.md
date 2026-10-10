@@ -65,12 +65,12 @@
 - [x] submit_action · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/run_episode/test_submit_action.py -q 2>&1 | tail -1 → 14 passed in 0.13s (10-10)
 - [x] submit_action · wired — 证据: bash -c grep -q "submit_action" fn_work/tests/run_episode/test_submit_action.py && echo 测试调用点在（弱判据；生产调用方 run_episode 本批下一函数落地后补验） → 测试调用点在（弱判据；生产调用方 run_episode 本批下一函数落地后补验） (10-10)
 - [x] submit_action · 清单进位 — 证据: bash -c grep -q "| submit_action | B2 | wired 10-10 |" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-10)
-- [ ] submit_action · commit — 预告: fn(submit_action): wired 含四文档变更
+- [x] submit_action · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(submit_action): wired" && echo commit 在 → commit 在 (10-10)
 ### run_episode
-- [ ] run_episode · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] run_episode · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] run_episode · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] run_episode · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] run_episode · implemented — 证据: bash -c ! grep -q "unimplemented:fn:run_episode" fn_work/src/run_episode/run_episode.py && echo 桩已替换 → 桩已替换 (10-10)
+- [x] run_episode · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/run_episode/test_run_episode.py -q 2>&1 | tail -1 → 7 passed in 0.13s (10-10)
+- [x] run_episode · wired — 证据: bash -c grep -q "from src.run_episode.connect_env import connect_env" fn_work/src/run_episode/run_episode.py && grep -q "submit_action(env, action, scene)" fn_work/src/run_episode/run_episode.py && grep -q ""run_id": "b2-realrun-vc33"" fn_work/logs/20261010.jsonl && grep -q ""event": "episode_end"" fn_work/logs/20261010.jsonl && echo "生产调用点+实跑产物在（真 SDK vc33 局 50 步 GAME_OVER）" → 生产调用点+实跑产物在（真 SDK vc33 局 50 步 GAME_OVER） (10-10)
+- [x] run_episode · 清单进位 — 证据: bash -c grep -q "run_episode | B2 | wired 10-10" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-10)
 - [ ] run_episode · commit — 预告: fn(run_episode): wired 含四文档变更
 
 ## B2 批间门
@@ -198,3 +198,4 @@
 - [ ] B5 · 用户裁决 — 预告: 继续 / 修订 / 裁决 blocked
 - Ruling: B1 四共享函数 wired 判据降级为「测试文件静态导入+实跑」 — 原因：生产调用点（make_*_policy 等）按批次计划在 B2/B3 才实现 — 代价：B1 wired 为弱判据 — 落点：B2/B3 验收点复验生产调用点 grep（batches.md 注列已同步）
 - Ruling: llm_complete 增可选参数 model=""（显式模型名覆盖端点默认） — 原因：make_baseline_policy 配置含模型名，原实现只认 ARC_MODEL 环境变量，配置无法落到请求体 — 代价：B1 已 wired 函数签名扩展（向后兼容，默认行为不变，+1 测至 10 绿） — 落点：batches.md 变更记录互指；responsibility.md 签名意图为意图级描述不改
+- 注记: B2 验收点「裸基线单局实跑」部分受阻 — 27B vLLM 服务缺位（唯一算力机 RTX 4070 Laptop 8GB 显存 < 27B FP8 权重 ~27GB+，requirements 技术栈决策的远端服务化未部署） — 已以真 SDK 在线匿名局+脚本策略实跑替代（run_id=b2-realrun-vc33，50 步 GAME_OVER，日志在库） — 待批间门用户裁决：换小模型量化/另配算力/挂账至推理服务部署后补跑
