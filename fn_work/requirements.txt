@@ -1,0 +1,4 @@
+httpx
+pyyaml
+pytest
+# vllm 在远端 GPU 机部署，不进本环境；kaggle CLI 已全局安装
