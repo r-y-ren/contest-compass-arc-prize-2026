@@ -35,7 +35,7 @@
 - [x] load_episode_set · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/shared/test_load_episode_set.py -q → 10 passed in 0.02s (10-10)
 - [x] load_episode_set · wired — 证据: bash -c grep -q "load_episode_set" fn_work/tests/shared/test_load_episode_set.py && echo 测试调用点在（Ruling 弱判据） → 测试调用点在（Ruling 弱判据） (10-10)
 - [x] load_episode_set · 清单进位 — 证据: bash -c grep -q "| load_episode_set | B1 | wired 10-10 |" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-10)
-- [ ] load_episode_set · commit — 预告: fn(load_episode_set): wired 含四文档变更
+- [x] load_episode_set · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(load_episode_set): wired" && echo commit 在 → commit 在 (10-10)
 
 ## B1 批间门
 - [ ] B1 · 评审三轴 — 预告: 规格/标准/档案同步（含 tracker 本批行核对）
