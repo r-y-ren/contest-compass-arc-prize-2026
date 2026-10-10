@@ -9,7 +9,7 @@
 | render_obs | B1 | wired 10-10；B2 债务②清 10-10 | pytest tests/shared/test_render_obs.py → 22 passed（稳定序列化/截断边界/REQUIRED_FIELDS 六字段回填+逐字段缺失报错/docstring 截断措辞修正） | 本批 |
 | append_jsonl_log | B1 | wired 10-10 | pytest → 6 passed（原子追加/镜像/LogWriteError） | 本批 |
 | load_episode_set | B1 | wired 10-10；B2 债务①清 10-10 | pytest tests/shared/test_load_episode_set.py → 14 passed（+known_episode_ids 局 ID 存在性校验：精确/短名基础名匹配/未命中报错/不注入跳过） | 本批 |
-| build_baseline_prompt | B2 | stub 2026-10-10 | 上游覆盖: make_baseline_policy | — |
+| build_baseline_prompt | B2 | wired 10-10 | pytest tests/make_baseline_policy/test_build_baseline_prompt.py → 7 passed（固定模板常量/render_obs 视图一致/确定性/异常透传/预算接线/模板协议守卫） | 本批 |
 | make_baseline_policy | B2 | stub 2026-10-10 | 测试: tests/make_baseline_policy/test_make_baseline_policy.py；集成继承 R2 | — |
 | connect_env | B2 | stub 2026-10-10 | 上游覆盖: run_episode | — |
 | submit_action | B2 | stub 2026-10-10 | 上游覆盖: run_episode | — |
