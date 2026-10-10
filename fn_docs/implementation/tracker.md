@@ -17,12 +17,12 @@
 - [x] llm_complete · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/shared/test_llm_complete.py -q → 9 passed in 0.03s (10-10)
 - [x] llm_complete · wired — 证据: bash -c grep -q "llm_complete" fn_work/tests/shared/test_llm_complete.py && echo 测试调用点在（Ruling 弱判据） → 测试调用点在（Ruling 弱判据） (10-10)
 - [x] llm_complete · 清单进位 — 证据: bash -c grep -q "| llm_complete | B1 | wired 10-10 |" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-10)
-- [ ] llm_complete · commit — 预告: fn(llm_complete): wired 含四文档变更
+- [x] llm_complete · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(llm_complete): wired" && echo commit 在 → commit 在 (10-10)
 ### render_obs
-- [ ] render_obs · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] render_obs · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] render_obs · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] render_obs · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] render_obs · implemented — 证据: bash -c ! grep -q "unimplemented:fn:render_obs" fn_work/src/shared/render_obs.py && echo 桩已替换 → 桩已替换 (10-10)
+- [x] render_obs · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/shared/test_render_obs.py -q → 17 passed in 0.01s (10-10)
+- [x] render_obs · wired — 证据: bash -c grep -q "render_obs" fn_work/tests/shared/test_render_obs.py && echo 测试调用点在（Ruling 弱判据） → 测试调用点在（Ruling 弱判据） (10-10)
+- [x] render_obs · 清单进位 — 证据: bash -c grep -q "| render_obs | B1 | wired 10-10 |" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-10)
 - [ ] render_obs · commit — 预告: fn(render_obs): wired 含四文档变更
 ### append_jsonl_log
 - [ ] append_jsonl_log · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
