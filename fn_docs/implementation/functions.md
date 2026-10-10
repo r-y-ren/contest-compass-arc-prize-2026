@@ -11,7 +11,7 @@
 | load_episode_set | B1 | wired 10-10；B2 债务①清 10-10 | pytest tests/shared/test_load_episode_set.py → 14 passed（+known_episode_ids 局 ID 存在性校验：精确/短名基础名匹配/未命中报错/不注入跳过） | 本批 |
 | build_baseline_prompt | B2 | wired 10-10 | pytest tests/make_baseline_policy/test_build_baseline_prompt.py → 7 passed（固定模板常量/render_obs 视图一致/确定性/异常透传/预算接线/模板协议守卫） | 本批 |
 | make_baseline_policy | B2 | wired 10-10 | pytest tests/make_baseline_policy/test_make_baseline_policy.py → 14 passed（构造校验/解析+确定性回退/usage 累计/异常透传/model 透传） | 本批 |
-| connect_env | B2 | stub 2026-10-10 | 上游覆盖: run_episode | — |
+| connect_env | B2 | wired 10-10 | pytest tests/run_episode/test_connect_env.py → 10 passed（假 SDK 注入/真 FrameDataRaw 归一化/make·reset 判空与异常包装/spec 校验） | 本批 |
 | submit_action | B2 | stub 2026-10-10 | 上游覆盖: run_episode | — |
 | run_episode | B2 | stub 2026-10-10 | 测试: tests/run_episode/test_run_episode.py；集成继承 R1 | — |
 | estimate_difficulty | B3 | stub 2026-10-10 | 测试: tests/make_curriculum_policy/test_estimate_difficulty.py | — |
