@@ -8,7 +8,7 @@
 | llm_complete | B1 | wired 10-10 | pytest tests/shared/test_llm_complete.py → 9 passed（experiment 抛错/submit 重试降级全覆盖） | 本批 |
 | render_obs | B1 | wired 10-10 | pytest → 17 passed（稳定序列化/截断边界/ObsFormatError） | 本批 |
 | append_jsonl_log | B1 | wired 10-10 | pytest → 6 passed（原子追加/镜像/LogWriteError） | 本批 |
-| load_episode_set | B1 | stub 2026-10-10 | 测试: tests/shared/test_load_episode_set.py | — |
+| load_episode_set | B1 | wired 10-10 | pytest → 10 passed（YAML 校验/ConfigError 八态） | 本批 |
 | build_baseline_prompt | B2 | stub 2026-10-10 | 上游覆盖: make_baseline_policy | — |
 | make_baseline_policy | B2 | stub 2026-10-10 | 测试: tests/make_baseline_policy/test_make_baseline_policy.py；集成继承 R2 | — |
 | connect_env | B2 | stub 2026-10-10 | 上游覆盖: run_episode | — |
