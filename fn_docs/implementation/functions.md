@@ -10,10 +10,10 @@
 | append_jsonl_log | B1 | wired 10-10 | pytest → 6 passed（原子追加/镜像/LogWriteError） | 本批 |
 | load_episode_set | B1 | wired 10-10；B2 债务①清 10-10 | pytest tests/shared/test_load_episode_set.py → 14 passed（+known_episode_ids 局 ID 存在性校验：精确/短名基础名匹配/未命中报错/不注入跳过） | 本批 |
 | build_baseline_prompt | B2 | wired 10-10 | pytest tests/make_baseline_policy/test_build_baseline_prompt.py → 7 passed（固定模板常量/render_obs 视图一致/确定性/异常透传/预算接线/模板协议守卫） | 本批 |
-| make_baseline_policy | B2 | wired 10-10 | pytest tests/make_baseline_policy/test_make_baseline_policy.py → 14 passed（构造校验/解析+确定性回退/usage 累计/异常透传/model 透传） | 本批 |
+| make_baseline_policy | B2 | wired 10-10 | pytest tests/make_baseline_policy/test_make_baseline_policy.py → 15 passed（构造校验/解析+确定性回退/usage 累计/异常透传/model 透传；B4 树外修复 +1：fallback ACTION6 补坐标） | 本批 |
 | connect_env | B2 | wired 10-10 | pytest tests/run_episode/test_connect_env.py → 10 passed（假 SDK 注入/真 FrameDataRaw 归一化/make·reset 判空与异常包装/spec 校验） | 本批 |
 | submit_action | B2 | wired 10-10 | pytest tests/run_episode/test_submit_action.py → 14 passed（结构校验+错误码/None 场景归一 experiment 抛·submit 哨兵/跨模块动作名守卫） | 本批 |
-| run_episode | B2 | wired 10-10；B3 钩子扩展 10-11 | pytest tests/run_episode/test_run_episode.py → 9 passed（+可选 on_episode_start/end 钩子，R3/R4 包装局边界信号，Ruling 已记）；实跑：真 SDK vc33 匿名局 50 步 GAME_OVER（策略为脚本件——27B vLLM 缺位，D1 挂账） | 本批 |
+| run_episode | B2 | wired 10-10；B3 钩子扩展 10-11 | pytest tests/run_episode/test_run_episode.py → 11 passed（+钩子 2 测/D2 obs_summary/用量差值防跨局重复计数——B4 评审 S3 修复）；实跑：真 SDK vc33 匿名局 50 步 GAME_OVER（策略为脚本件——27B vLLM 缺位，D1 挂账） | 本批 |
 | estimate_difficulty | B3 | wired 10-11 | pytest tests/make_curriculum_policy/test_estimate_difficulty.py → 8 passed（公式分量/钳制/空记录低置信/纯函数/脏记录容错） | 本批 |
 | select_experience_source | B3 | wired 10-11 | pytest tests/make_curriculum_policy/test_select_experience_source.py → 10 passed（先易后难+利用计数 score 决胜/平手链/理由串/池校验/确定性） | 本批 |
 | make_curriculum_policy | B3 | wired 10-11 | pytest tests/make_curriculum_policy/test_make_curriculum_policy.py → 10 passed（选源落日志/obs 注入转发/局终回填难度/轮转/确定性） | 本批 |

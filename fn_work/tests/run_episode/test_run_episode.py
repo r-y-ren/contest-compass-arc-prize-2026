@@ -30,16 +30,19 @@ class _FakeEnv:
 
 
 class _FakePolicy:
-    """act 按序吐动作并记录收到的观测；带 scene/total_usage 协议属性。"""
+    """act 按序吐动作并记录收到的观测；total_usage 跨 act 累计（协议语义）。"""
 
     def __init__(self, actions, scene="experiment"):
         self.actions = list(actions)
         self.seen_obs = []
         self.scene = scene
-        self.total_usage = {"prompt_tokens": 100, "completion_tokens": 50, "calls": 4}
+        self.total_usage = {"prompt_tokens": 0, "completion_tokens": 0, "calls": 0}
 
     def act(self, obs):
         self.seen_obs.append(dict(obs))
+        self.total_usage["prompt_tokens"] += 100
+        self.total_usage["completion_tokens"] += 50
+        self.total_usage["calls"] += 1
         return self.actions.pop(0)
 
 
@@ -79,7 +82,7 @@ def test_two_step_win_result_and_logs(monkeypatch):
     assert result["steps"] == 2
     assert result["levels_completed"] == 2
     assert result["win_levels"] == 254
-    assert result["token_usage"] == {"prompt_tokens": 100, "completion_tokens": 50, "calls": 4}
+    assert result["token_usage"] == {"prompt_tokens": 200, "completion_tokens": 100, "calls": 2}  # 局内差值
     assert isinstance(result["duration_s"], float) and result["duration_s"] >= 0
 
     step_logs = [p for event, p in logs if event == "step"]
@@ -217,7 +220,22 @@ def test_hook_exception_propagates(monkeypatch):
         run_episode({"game_id": "ls20"}, _Boom(), "run-boom")
 
 
-# ⑦ D2：步日志含 obs_summary（状态/进度/可用动作/帧形状，无全量帧）
+# ⑦ 用量差值：共享策略跨局复用时，各局 token_usage 只记本局增量
+
+
+def test_token_usage_records_per_episode_delta(monkeypatch):
+    _, logs = _install(monkeypatch, [_obs("WIN"), _obs("WIN")])
+    policy = _FakePolicy([{"name": "ACTION1"}, {"name": "ACTION1"}])
+
+    first = run_episode({"game_id": "g"}, policy, "run-u1")
+    second = run_episode({"game_id": "g"}, policy, "run-u2")  # 同一策略对象复用
+
+    assert first["token_usage"] == {"prompt_tokens": 100, "completion_tokens": 50, "calls": 1}
+    assert second["token_usage"] == {"prompt_tokens": 100, "completion_tokens": 50, "calls": 1}
+    assert policy.total_usage["calls"] == 2  # 策略侧仍是累计值
+
+
+# ⑧ D2：步日志含 obs_summary（状态/进度/可用动作/帧形状，无全量帧）
 
 
 def test_step_log_carries_obs_summary(monkeypatch):

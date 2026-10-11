@@ -60,6 +60,10 @@ def run_episode(spec: dict, policy, run_id: str) -> dict:
         policy.on_episode_start(spec, run_id)
     env, obs = connect_env(spec)
     game_id = obs.get("game_id") or spec.get("game_id")
+    # 局初用量基线：局终取差值——策略对象跨局复用时 total_usage 是累计值，
+    # 直接快照会把前局用量重复计入本局与批级汇总（B4 批间评审 S3 追查，2026-10-11 修复）。
+    usage_keys = ("prompt_tokens", "completion_tokens", "calls")
+    usage_before = {k: (getattr(policy, "total_usage", None) or {}).get(k, 0) for k in usage_keys}
 
     started = time.perf_counter()
     steps = 0
@@ -87,9 +91,8 @@ def run_episode(spec: dict, policy, run_id: str) -> dict:
 
     state = obs.get("state")
     outcome = state if state in _TERMINAL_STATES else "STEP_LIMIT"
-    token_usage = dict(getattr(policy, "total_usage", None) or {
-        "prompt_tokens": 0, "completion_tokens": 0, "calls": 0
-    })
+    usage_after = getattr(policy, "total_usage", None) or usage_before
+    token_usage = {k: usage_after.get(k, 0) - usage_before[k] for k in usage_keys}
     result = {
         "episode_id": game_id,
         "outcome": outcome,
