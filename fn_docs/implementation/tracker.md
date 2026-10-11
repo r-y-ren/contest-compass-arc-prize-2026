@@ -107,12 +107,12 @@
 - [x] regularize_experience · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/make_regularized_policy/test_regularize_experience.py -q → 9 passed in 0.01s (10-11)
 - [x] regularize_experience · wired — 证据: bash -c grep -q regularize_experience fn_work/tests/make_regularized_policy/test_regularize_experience.py && echo 测试调用点在（弱判据；生产调用方 make_regularized_policy 本批下一函数落地后补验） → 测试调用点在（弱判据；生产调用方 make_regularized_policy 本批下一函数落地后补验） (10-11)
 - [x] regularize_experience · 清单进位 — 证据: bash -c grep -q "regularize_experience | B3 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
-- [ ] regularize_experience · commit — 预告: fn(regularize_experience): wired 含四文档变更
+- [x] regularize_experience · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(regularize_experience): wired" && echo commit 在 → commit 在 (10-11)
 ### make_regularized_policy
-- [ ] make_regularized_policy · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] make_regularized_policy · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] make_regularized_policy · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] make_regularized_policy · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] make_regularized_policy · implemented — 证据: bash -c ! grep -q unimplemented:fn:make_regularized_policy fn_work/src/make_regularized_policy/make_regularized_policy.py && echo 桩已替换 → 桩已替换 (10-11)
+- [x] make_regularized_policy · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/make_regularized_policy/test_make_regularized_policy.py -q → 9 passed in 0.01s (10-11)
+- [x] make_regularized_policy · wired — 证据: bash -c grep -q regularize_experience fn_work/src/make_regularized_policy/make_regularized_policy.py && grep -q update_experience_store fn_work/src/make_regularized_policy/make_regularized_policy.py && grep -q on_episode_end fn_work/src/run_episode/run_episode.py && echo 生产调用点在（regularize/update 由本函数调用；钩子由 run_episode 调用；本函数生产调用方=配置矩阵属 B4） → 生产调用点在（regularize/update 由本函数调用；钩子由 run_episode 调用；本函数生产调用方= (10-11)
+- [x] make_regularized_policy · 清单进位 — 证据: bash -c grep -q "make_regularized_policy | B3 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
 - [ ] make_regularized_policy · commit — 预告: fn(make_regularized_policy): wired 含四文档变更
 
 ## B3 批间门
