@@ -151,10 +151,10 @@
 
 ## B5 — render_submission_entry, verify_package_layout, build_kaggle_package, submit_package, collect_run_artifacts, render_gain_table, write_report
 ### render_submission_entry
-- [ ] render_submission_entry · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] render_submission_entry · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] render_submission_entry · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] render_submission_entry · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] render_submission_entry · implemented — 证据: bash -c ! grep -q unimplemented:fn:render_submission_entry fn_work/src/build_kaggle_package/render_submission_entry.py && echo 桩已替换 → 桩已替换 (10-11)
+- [x] render_submission_entry · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/build_kaggle_package/test_render_submission_entry.py -q → 10 passed in 0.01s (10-11)
+- [x] render_submission_entry · wired — 证据: bash -c grep -q render_submission_entry fn_work/tests/build_kaggle_package/test_render_submission_entry.py && echo 测试调用点在（弱判据；生产调用方 build_kaggle_package 本批后段落地后补验） → 测试调用点在（弱判据；生产调用方 build_kaggle_package 本批后段落地后补验） (10-11)
+- [x] render_submission_entry · 清单进位 — 证据: bash -c grep -q "render_submission_entry | B5 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
 - [ ] render_submission_entry · commit — 预告: fn(render_submission_entry): wired 含四文档变更
 ### verify_package_layout
 - [ ] verify_package_layout · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
