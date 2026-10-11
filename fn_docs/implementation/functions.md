@@ -30,4 +30,4 @@
 | submit_package | B5 | wired 10-11 | pytest tests/submit_package/test_submit_package.py → 6 passed（预检拒/重试耗尽附原始输出/三连败恢复）；dry-run 实跑回执 verified=true（arc-prize-2026-arc-agi-3）；R6 验收命令偏差 Ruling 已记 | 本批 |
 | collect_run_artifacts | B5 | wired 10-11 | pytest tests/write_report/test_collect_run_artifacts.py → 4 passed（表解析/无表 run/只读性/空目录与缺失报错） | 本批 |
 | render_gain_table | B5 | wired 10-11 | pytest tests/write_report/test_render_gain_table.py → 6 passed（markdown 结构/行级溯源链接/多 run 确定性/索引缺项报错） | 本批 |
-| write_report | B5 | stub 2026-10-10 | 测试: tests/write_report/test_write_report.py；可观察判据继承 R7 | — |
+| write_report | B5 | wired 10-11 | pytest tests/write_report/test_write_report.py → 4 passed（三节结构/数字核对宁停勿错/索引缺项）；实跑：库内 E2E 产物出真报告 runs/eval-1791683161-s42/report.md | 本批 |
