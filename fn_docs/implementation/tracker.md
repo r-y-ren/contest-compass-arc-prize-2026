@@ -191,10 +191,10 @@
 - [x] write_report · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/write_report/test_write_report.py -q → 4 passed in 0.01s (10-11)
 - [x] write_report · wired — 证据: bash -c grep -q collect_run_artifacts fn_work/src/write_report/write_report.py && grep -q render_gain_table fn_work/src/write_report/write_report.py && echo 生产调用点在（collect/render 由本函数调用；报告口实跑随后补证） → 生产调用点在（collect/render 由本函数调用；报告口实跑随后补证） (10-11)
 - [x] write_report · 清单进位 — 证据: bash -c grep -q "write_report | B5 | wired 10-11" fn_docs/implementation/functions.md && grep -q "自进化智能体复现报告" fn_work/runs/eval-1791683161-s42/report.md && echo 清单行+报告证据已落 → 清单行+报告证据已落 (10-11)
-- [ ] write_report · commit — 预告: fn(write_report): wired 含四文档变更
+- [x] write_report · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(write_report): wired" && echo commit 在 → commit 在 (10-11)
 
 ## B5 批间门
-- [ ] B5 · 评审三轴 — 预告: 规格/标准/档案同步（含 tracker 本批行核对）
+- [x] B5 · 评审三轴 — 证据: bash -c git status --short | grep -v "^??" | wc -l | grep -q "^0$" ; grep -q "kaggle_competition_contract" references/INDEX.md && grep -q "Ruling: verify_package_layout" fn_docs/implementation/tracker.md && echo 评审条件全清（勾已收编/契约落档/Ruling 备案） → 评审条件全清（勾已收编/契约落档/Ruling 备案） (10-11)
 - [ ] B5 · 用户裁决 — 预告: 继续 / 修订 / 裁决 blocked
 - Ruling: B1 四共享函数 wired 判据降级为「测试文件静态导入+实跑」 — 原因：生产调用点（make_*_policy 等）按批次计划在 B2/B3 才实现 — 代价：B1 wired 为弱判据 — 落点：B2/B3 验收点复验生产调用点 grep（batches.md 注列已同步）
 - Ruling: llm_complete 增可选参数 model=""（显式模型名覆盖端点默认） — 原因：make_baseline_policy 配置含模型名，原实现只认 ARC_MODEL 环境变量，配置无法落到请求体 — 代价：B1 已 wired 函数签名扩展（向后兼容，默认行为不变，+1 测至 10 绿） — 落点：batches.md 变更记录互指；responsibility.md 签名意图为意图级描述不改
@@ -204,3 +204,5 @@
 - Ruling: run_episode 策略协议扩展——可选钩子 on_episode_start(spec, run_id) / on_episode_end(result, run_id) — 原因：R3 课程调度需跨局难度信号与局边界事件（R4 经验入库同依赖），act-only 协议无法感知局起止 — 代价：B2 已 wired 的 run_episode 行为增强（无钩子策略零影响，+2 测至 9 绿） — 落点：batches.md 变更记录互指；docstring 协议节已更新
 - Ruling: aggregate_results 增可选参数 out_dir="fn_work/runs" — 原因：CSV 落盘需要 run 级目录注入（eval_ab 持 run_id），原签名无落点 — 代价：签名扩展（向后兼容，缺省 fn_work/runs，文件名固定 ab_table.csv 同 run 覆盖） — 落点：batches.md 变更记录互指
 - Ruling: R6 提交命令形态与赛站实核契约偏差 — 原因：requirements R6 验收原文假定 kaggle competitions submit -f <包>，实核（arc-prize-2026.md 2026-10-11）确认为 code competition：starter kit notebook 组装（make submit→kernels push）+网页 Submit to Competition — 代价：submit_package 实跑模式按计划形态执行、被拒时 SubmitError 原样暴露 CLI 输出；真实提交需 kit notebook 组装且属外部动作留用户授权（默认 dry_run） — 落点：batches.md 变更记录互指；requirements R6 措辞待 fn-close 前修订
+- Ruling: verify_package_layout「入口可导入性」实现为 py_compile 语法级检查 — 原因：importlib 真导入需在包上下文解析 arcengine/src 依赖，脱离目标环境不可靠 — 代价：检出力限于语法错误，导入期错误（如依赖缺失）不被捕获 — 落点：verify_package_layout docstring；fn-close 备查
+- Ruling: render_gain_table「逐数字内联挂链接」实现为行级 source 列（run 目录+csv 双链） — 原因：同行数字同源（同 run 同 CSV），行级链接可溯性等价且表可读 — 代价：粒度为行非单元格 — 落点：render_gain_table docstring；R7 验收判据（按路径找到产物且数字一致）实测成立

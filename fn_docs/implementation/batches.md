@@ -22,3 +22,4 @@
 | 2026-10-11 | B4 收档 | 四函数 wired + D2/D3 债务清账（4eecdaa）；端到端验收达成（真 CLI+真 SDK+假 LLM 2 局对照表）；pytest 203 passed/7 skipped；桩残留 7（B5） |
 | 2026-10-11 | Ruling 互指 | R6 提交命令形态偏差（code competition 契约，详见 tracker Ruling 行）；随 submit_package 批次实施；赛站实核补充：arc-prize-2026-arc-agi-3 榜单可查（榜首 62.96） |
 | 2026-10-11 | B5 收档 | 七函数 wired（打包/提交/报告三口）；赛站契约实核前置（code competition/notebook，kaggle CLI 查得 arc-prize-2026-arc-agi-3）；R6 命令形态偏差 Ruling；pytest 244 passed/0 skipped、桩清零——**战役 26/26 全 wired** |
+| 2026-10-11 | B5 批间评审 | 有条件过门→条件清：tracker 勾收编/dry-run 回执抄 runs/ 留证/杂散目录清除/赛站契约实核落 references+INDEX（评审建议②）/措辞级 Ruling×2 备案（py_compile 语义/行级溯源粒度）；D4 挂账落点移交 fn-close 处置（补 SDK 侧错误码佐证或明示接受） |
