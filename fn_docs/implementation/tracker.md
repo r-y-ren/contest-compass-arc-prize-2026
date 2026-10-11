@@ -179,12 +179,12 @@
 - [x] collect_run_artifacts · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/write_report/test_collect_run_artifacts.py -q → 4 passed in 0.01s (10-11)
 - [x] collect_run_artifacts · wired — 证据: bash -c grep -q collect_run_artifacts fn_work/tests/write_report/test_collect_run_artifacts.py && echo 测试调用点在（弱判据；生产调用方 write_report 本批下一函数落地后补验） → 测试调用点在（弱判据；生产调用方 write_report 本批下一函数落地后补验） (10-11)
 - [x] collect_run_artifacts · 清单进位 — 证据: bash -c grep -q "collect_run_artifacts | B5 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
-- [ ] collect_run_artifacts · commit — 预告: fn(collect_run_artifacts): wired 含四文档变更
+- [x] collect_run_artifacts · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(collect_run_artifacts): wired" && echo commit 在 → commit 在 (10-11)
 ### render_gain_table
-- [ ] render_gain_table · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] render_gain_table · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] render_gain_table · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] render_gain_table · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] render_gain_table · implemented — 证据: bash -c ! grep -q unimplemented:fn:render_gain_table fn_work/src/write_report/render_gain_table.py && echo 桩已替换 → 桩已替换 (10-11)
+- [x] render_gain_table · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/write_report/test_render_gain_table.py -q → 6 passed in 0.01s (10-11)
+- [x] render_gain_table · wired — 证据: bash -c grep -q render_gain_table fn_work/tests/write_report/test_render_gain_table.py && echo 测试调用点在（弱判据；生产调用方 write_report 本批下一函数落地后补验） → 测试调用点在（弱判据；生产调用方 write_report 本批下一函数落地后补验） (10-11)
+- [x] render_gain_table · 清单进位 — 证据: bash -c grep -q "render_gain_table | B5 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
 - [ ] render_gain_table · commit — 预告: fn(render_gain_table): wired 含四文档变更
 ### write_report
 - [ ] write_report · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
