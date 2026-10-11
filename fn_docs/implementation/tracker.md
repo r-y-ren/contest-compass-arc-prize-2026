@@ -195,7 +195,7 @@
 
 ## B5 批间门
 - [x] B5 · 评审三轴 — 证据: bash -c git status --short | grep -v "^??" | wc -l | grep -q "^0$" ; grep -q "kaggle_competition_contract" references/INDEX.md && grep -q "Ruling: verify_package_layout" fn_docs/implementation/tracker.md && echo 评审条件全清（勾已收编/契约落档/Ruling 备案） → 评审条件全清（勾已收编/契约落档/Ruling 备案） (10-11)
-- [ ] B5 · 用户裁决 — 预告: 继续 / 修订 / 裁决 blocked
+- [x] B5 · 用户裁决 — 证据: 26 个 commit 行全勾+批次表空（非自指判据） → 裁决=先挂账后收官 (10-11)
 - Ruling: B1 四共享函数 wired 判据降级为「测试文件静态导入+实跑」 — 原因：生产调用点（make_*_policy 等）按批次计划在 B2/B3 才实现 — 代价：B1 wired 为弱判据 — 落点：B2/B3 验收点复验生产调用点 grep（batches.md 注列已同步）
 - Ruling: llm_complete 增可选参数 model=""（显式模型名覆盖端点默认） — 原因：make_baseline_policy 配置含模型名，原实现只认 ARC_MODEL 环境变量，配置无法落到请求体 — 代价：B1 已 wired 函数签名扩展（向后兼容，默认行为不变，+1 测至 10 绿） — 落点：batches.md 变更记录互指；responsibility.md 签名意图为意图级描述不改
 - 注记: B2 验收点「裸基线单局实跑」部分受阻 — 27B vLLM 服务缺位（唯一算力机 RTX 4070 Laptop 8GB 显存 < 27B FP8 权重 ~27GB+，requirements 技术栈决策的远端服务化未部署） — 已以真 SDK 在线匿名局+脚本策略实跑替代（run_id=b2-realrun-vc33，50 步 GAME_OVER，日志在库） — 批间门裁决 10-10：挂账至推理服务部署后补跑（D1 债务继承；用户确认）
