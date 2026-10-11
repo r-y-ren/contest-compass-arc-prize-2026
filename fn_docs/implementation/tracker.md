@@ -173,12 +173,12 @@
 - [x] submit_package · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/submit_package/test_submit_package.py -q → 6 passed in 0.05s (10-11)
 - [x] submit_package · wired — 证据: bash -c grep -q verify_package_layout fn_work/src/submit_package/submit_package.py && echo 生产调用点在（verify 预检由本函数调用；dry-run 回执即验收口径） → 生产调用点在（verify 预检由本函数调用；dry-run 回执即验收口径） (10-11)
 - [x] submit_package · 清单进位 — 证据: bash -c grep -q "submit_package | B5 | wired 10-11" fn_docs/implementation/functions.md && grep -q "Ruling: R6 提交命令形态" fn_docs/implementation/tracker.md && echo 清单行+Ruling 已落 → 清单行+Ruling 已落 (10-11)
-- [ ] submit_package · commit — 预告: fn(submit_package): wired 含四文档变更
+- [x] submit_package · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(submit_package): wired" && echo commit 在 → commit 在 (10-11)
 ### collect_run_artifacts
-- [ ] collect_run_artifacts · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] collect_run_artifacts · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] collect_run_artifacts · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] collect_run_artifacts · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] collect_run_artifacts · implemented — 证据: bash -c ! grep -q unimplemented:fn:collect_run_artifacts fn_work/src/write_report/collect_run_artifacts.py && echo 桩已替换 → 桩已替换 (10-11)
+- [x] collect_run_artifacts · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/write_report/test_collect_run_artifacts.py -q → 4 passed in 0.01s (10-11)
+- [x] collect_run_artifacts · wired — 证据: bash -c grep -q collect_run_artifacts fn_work/tests/write_report/test_collect_run_artifacts.py && echo 测试调用点在（弱判据；生产调用方 write_report 本批下一函数落地后补验） → 测试调用点在（弱判据；生产调用方 write_report 本批下一函数落地后补验） (10-11)
+- [x] collect_run_artifacts · 清单进位 — 证据: bash -c grep -q "collect_run_artifacts | B5 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
 - [ ] collect_run_artifacts · commit — 预告: fn(collect_run_artifacts): wired 含四文档变更
 ### render_gain_table
 - [ ] render_gain_table · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留

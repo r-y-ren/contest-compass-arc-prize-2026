@@ -28,6 +28,6 @@
 | verify_package_layout | B5 | wired 10-11 | pytest tests/build_kaggle_package/test_verify_package_layout.py → 5 passed（完整包过/缺件清单化不抛/入口编译错捕获） | 本批 |
 | build_kaggle_package | B5 | wired 10-11 | pytest tests/build_kaggle_package/test_build_kaggle_package.py → 5 passed（真实组包/冻结记录/requirements 派生滤测试依赖/幂等重建） | 本批 |
 | submit_package | B5 | wired 10-11 | pytest tests/submit_package/test_submit_package.py → 6 passed（预检拒/重试耗尽附原始输出/三连败恢复）；dry-run 实跑回执 verified=true（arc-prize-2026-arc-agi-3）；R6 验收命令偏差 Ruling 已记 | 本批 |
-| collect_run_artifacts | B5 | stub 2026-10-10 | 测试: tests/write_report/test_collect_run_artifacts.py | — |
+| collect_run_artifacts | B5 | wired 10-11 | pytest tests/write_report/test_collect_run_artifacts.py → 4 passed（表解析/无表 run/只读性/空目录与缺失报错） | 本批 |
 | render_gain_table | B5 | stub 2026-10-10 | 上游覆盖: write_report | — |
 | write_report | B5 | stub 2026-10-10 | 测试: tests/write_report/test_write_report.py；可观察判据继承 R7 | — |
