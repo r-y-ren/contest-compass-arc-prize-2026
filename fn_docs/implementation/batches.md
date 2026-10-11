@@ -18,3 +18,4 @@
 | 2026-10-10 | B2 批间评审 | 三轴过门（建议级 4 项）；债务登记：D1 baseline 真 LLM 端到端+确定性双跑（随 27B 落地补，继承 blocked）、D2 步日志 obs 摘要策略（B4 eval_ab 集成前定义）、D3 logs/ 入库保留策略（B4 前定：证据性实跑入库/常规跑批落 runs/ 不入库）、D4 submit_action 错误码佐证（R1 集成验收时 SDK 侧日志佐证或明示接受） |
 | 2026-10-11 | Ruling 互指 | run_episode 策略协议扩展（+可选局边界钩子，详见 tracker Ruling 行）；随 make_curriculum_policy 批次实施 |
 | 2026-10-11 | B3 收档 | 六函数 wired（两包装策略+两降级件+难度/选源）；含 run_episode 钩子协议扩展 Ruling；pytest 161 passed/11 skipped |
+| 2026-10-11 | B3 批间评审 | 三轴 17/17 过门零阻断；建议级并入 B4 复核：钩子 start/end 失败不对称（connect_env 抛错则 end 永不触发，B4 失败重试设计须知晓）；estimate_difficulty 记录口径（尝试次数=len(history)）备察 |

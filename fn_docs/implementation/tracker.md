@@ -113,10 +113,10 @@
 - [x] make_regularized_policy · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/make_regularized_policy/test_make_regularized_policy.py -q → 9 passed in 0.01s (10-11)
 - [x] make_regularized_policy · wired — 证据: bash -c grep -q regularize_experience fn_work/src/make_regularized_policy/make_regularized_policy.py && grep -q update_experience_store fn_work/src/make_regularized_policy/make_regularized_policy.py && grep -q on_episode_end fn_work/src/run_episode/run_episode.py && echo 生产调用点在（regularize/update 由本函数调用；钩子由 run_episode 调用；本函数生产调用方=配置矩阵属 B4） → 生产调用点在（regularize/update 由本函数调用；钩子由 run_episode 调用；本函数生产调用方= (10-11)
 - [x] make_regularized_policy · 清单进位 — 证据: bash -c grep -q "make_regularized_policy | B3 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
-- [ ] make_regularized_policy · commit — 预告: fn(make_regularized_policy): wired 含四文档变更
+- [x] make_regularized_policy · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(make_regularized_policy): wired" && echo commit 在 → commit 在 (10-11)
 
 ## B3 批间门
-- [ ] B3 · 评审三轴 — 预告: 规格/标准/档案同步（含 tracker 本批行核对）
+- [x] B3 · 评审三轴 — 证据: bash -c git log --oneline -3 | head -1 | grep -q B3 && echo 评审子代理三轴过门 → 评审子代理三轴过门 (10-11)
 - [ ] B3 · 用户裁决 — 预告: 继续 / 修订 / 裁决 blocked
 
 ## B4 — build_config_matrix, run_config_batch, aggregate_results, eval_ab
