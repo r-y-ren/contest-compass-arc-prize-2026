@@ -21,3 +21,4 @@
 | 2026-10-11 | Ruling 互指 | aggregate_results 签名微调：+可选 out_dir 参数（详见 tracker Ruling 行）；随 B4 实施 |
 | 2026-10-11 | D2/D3 债务清账 | D2：步日志补 obs_summary（状态/进度/可用动作/帧形状，无全量帧防爆炸，可回放定位）；D3：fn_work/logs/ 入 ignore（常规跑批日志不入库，B2 期已入库的历史证据保留），证据性产物走 fn_work/runs/ 入库（指标件 CSV 等），需日志级证据时 ARC_LOG_DIR 指向 run 子目录强加 |
 | 2026-10-11 | B4 收档 | 四函数 wired + D2/D3 债务清账（4eecdaa）；端到端验收达成（真 CLI+真 SDK+假 LLM 2 局对照表）；pytest 203 passed/7 skipped；桩残留 7（B5） |
+| 2026-10-11 | Ruling 互指 | R6 提交命令形态偏差（code competition 契约，详见 tracker Ruling 行）；随 submit_package 批次实施；赛站实核补充：arc-prize-2026-arc-agi-3 榜单可查（榜首 62.96） |

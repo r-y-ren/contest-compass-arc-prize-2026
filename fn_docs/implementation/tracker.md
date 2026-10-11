@@ -167,12 +167,12 @@
 - [x] build_kaggle_package · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/build_kaggle_package/test_build_kaggle_package.py -q → 5 passed in 0.03s (10-11)
 - [x] build_kaggle_package · wired — 证据: bash -c grep -q render_submission_entry fn_work/src/build_kaggle_package/build_kaggle_package.py && grep -q verify_package_layout fn_work/src/build_kaggle_package/build_kaggle_package.py && echo 生产调用点在（render/verify 由本函数调用） → 生产调用点在（render/verify 由本函数调用） (10-11)
 - [x] build_kaggle_package · 清单进位 — 证据: bash -c grep -q "build_kaggle_package | B5 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
-- [ ] build_kaggle_package · commit — 预告: fn(build_kaggle_package): wired 含四文档变更
+- [x] build_kaggle_package · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(build_kaggle_package): wired" && echo commit 在 → commit 在 (10-11)
 ### submit_package
-- [ ] submit_package · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] submit_package · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] submit_package · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] submit_package · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] submit_package · implemented — 证据: bash -c ! grep -q unimplemented:fn:submit_package fn_work/src/submit_package/submit_package.py && echo 桩已替换 → 桩已替换 (10-11)
+- [x] submit_package · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/submit_package/test_submit_package.py -q → 6 passed in 0.05s (10-11)
+- [x] submit_package · wired — 证据: bash -c grep -q verify_package_layout fn_work/src/submit_package/submit_package.py && echo 生产调用点在（verify 预检由本函数调用；dry-run 回执即验收口径） → 生产调用点在（verify 预检由本函数调用；dry-run 回执即验收口径） (10-11)
+- [x] submit_package · 清单进位 — 证据: bash -c grep -q "submit_package | B5 | wired 10-11" fn_docs/implementation/functions.md && grep -q "Ruling: R6 提交命令形态" fn_docs/implementation/tracker.md && echo 清单行+Ruling 已落 → 清单行+Ruling 已落 (10-11)
 - [ ] submit_package · commit — 预告: fn(submit_package): wired 含四文档变更
 ### collect_run_artifacts
 - [ ] collect_run_artifacts · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
@@ -203,3 +203,4 @@
 - Ruling: B1 四共享生产调用点复验落账（补显式证据行） — 原因：B1 Ruling 落点要求 B2 验收点复验 grep，评审已复跑确认 — 代价：无 — 落点:llm_complete@make_baseline_policy.py、render_obs@build_baseline_prompt.py、append_jsonl_log@run_episode.py、build_baseline_prompt@make_baseline_policy.py、connect_env/submit_action@run_episode.py（grep 全命中，评审报告 2026-10-10）
 - Ruling: run_episode 策略协议扩展——可选钩子 on_episode_start(spec, run_id) / on_episode_end(result, run_id) — 原因：R3 课程调度需跨局难度信号与局边界事件（R4 经验入库同依赖），act-only 协议无法感知局起止 — 代价：B2 已 wired 的 run_episode 行为增强（无钩子策略零影响，+2 测至 9 绿） — 落点：batches.md 变更记录互指；docstring 协议节已更新
 - Ruling: aggregate_results 增可选参数 out_dir="fn_work/runs" — 原因：CSV 落盘需要 run 级目录注入（eval_ab 持 run_id），原签名无落点 — 代价：签名扩展（向后兼容，缺省 fn_work/runs，文件名固定 ab_table.csv 同 run 覆盖） — 落点：batches.md 变更记录互指
+- Ruling: R6 提交命令形态与赛站实核契约偏差 — 原因：requirements R6 验收原文假定 kaggle competitions submit -f <包>，实核（arc-prize-2026.md 2026-10-11）确认为 code competition：starter kit notebook 组装（make submit→kernels push）+网页 Submit to Competition — 代价：submit_package 实跑模式按计划形态执行、被拒时 SubmitError 原样暴露 CLI 输出；真实提交需 kit notebook 组装且属外部动作留用户授权（默认 dry_run） — 落点：batches.md 变更记录互指；requirements R6 措辞待 fn-close 前修订

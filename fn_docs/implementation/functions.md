@@ -27,7 +27,7 @@
 | render_submission_entry | B5 | wired 10-11 | pytest tests/build_kaggle_package/test_render_submission_entry.py → 10 passed（契约驱动渲染/名字与 dict 双解析/AST 语法合法/显式模板须完整） | 本批 |
 | verify_package_layout | B5 | wired 10-11 | pytest tests/build_kaggle_package/test_verify_package_layout.py → 5 passed（完整包过/缺件清单化不抛/入口编译错捕获） | 本批 |
 | build_kaggle_package | B5 | wired 10-11 | pytest tests/build_kaggle_package/test_build_kaggle_package.py → 5 passed（真实组包/冻结记录/requirements 派生滤测试依赖/幂等重建） | 本批 |
-| submit_package | B5 | stub 2026-10-10 | 集成继承 R6: kaggle submit 回执 | — |
+| submit_package | B5 | wired 10-11 | pytest tests/submit_package/test_submit_package.py → 6 passed（预检拒/重试耗尽附原始输出/三连败恢复）；dry-run 实跑回执 verified=true（arc-prize-2026-arc-agi-3）；R6 验收命令偏差 Ruling 已记 | 本批 |
 | collect_run_artifacts | B5 | stub 2026-10-10 | 测试: tests/write_report/test_collect_run_artifacts.py | — |
 | render_gain_table | B5 | stub 2026-10-10 | 上游覆盖: write_report | — |
 | write_report | B5 | stub 2026-10-10 | 测试: tests/write_report/test_write_report.py；可观察判据继承 R7 | — |
