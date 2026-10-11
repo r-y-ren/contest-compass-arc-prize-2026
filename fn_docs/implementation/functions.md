@@ -25,7 +25,7 @@
 | aggregate_results | B4 | wired 10-11 | pytest tests/eval_ab/test_aggregate_results.py → 8 passed（增益列对 baseline/CSV 落盘 out_dir/文本表对齐/缺列与无 baseline 报错）；签名微调：+可选 out_dir（Ruling 已记） | 本批 |
 | eval_ab | B4 | wired 10-11 | pytest tests/eval_ab/test_eval_ab.py → 11 passed；端到端实跑：真 CLI+真 SDK 2 局（vc33/cd82）+假 vLLM 存根（真 HTTP 200 次调用），对照表 stdout+CSV 入库 fn_work/runs/eval-1791683161-s42/ | 本批 |
 | render_submission_entry | B5 | wired 10-11 | pytest tests/build_kaggle_package/test_render_submission_entry.py → 10 passed（契约驱动渲染/名字与 dict 双解析/AST 语法合法/显式模板须完整） | 本批 |
-| verify_package_layout | B5 | stub 2026-10-10 | 测试: tests/build_kaggle_package/test_verify_package_layout.py | — |
+| verify_package_layout | B5 | wired 10-11 | pytest tests/build_kaggle_package/test_verify_package_layout.py → 5 passed（完整包过/缺件清单化不抛/入口编译错捕获） | 本批 |
 | build_kaggle_package | B5 | stub 2026-10-10 | 测试: tests/build_kaggle_package/test_build_kaggle_package.py；集成继承 R6 | — |
 | submit_package | B5 | stub 2026-10-10 | 集成继承 R6: kaggle submit 回执 | — |
 | collect_run_artifacts | B5 | stub 2026-10-10 | 测试: tests/write_report/test_collect_run_artifacts.py | — |
