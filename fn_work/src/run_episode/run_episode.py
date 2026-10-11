@@ -6,8 +6,9 @@
 - submit 场景 step 失败返回 STEP_FAILED 哨兵（非终局）：保持上一观测继续（提交态降级哲学），
   实验场景的失败已在 submit_action 内抛 EnvError（失败即停）。
 策略协议：policy.act(obs) -> 动作 dict；可选属性 scene（缺省 experiment）与
-total_usage（缺省零用量）。
-策略抛出的实验态异常不捕获（失败即停哲学由上层场景决定）。
+total_usage（缺省零用量）；可选钩子 on_episode_start(spec, run_id) /
+on_episode_end(result, run_id)——检测到即调用（R3/R4 包装策略的局边界信号，
+协议扩展 Ruling 见 tracker），钩子异常透传（实验态失败即停）。
 """
 
 from __future__ import annotations
@@ -36,6 +37,8 @@ def run_episode(spec: dict, policy, run_id: str) -> dict:
     - connect_env 的 EnvError 与策略异常原样透传。
     """
     scene = getattr(policy, "scene", "experiment")
+    if hasattr(policy, "on_episode_start"):
+        policy.on_episode_start(spec, run_id)
     env, obs = connect_env(spec)
     game_id = obs.get("game_id") or spec.get("game_id")
 
@@ -76,4 +79,6 @@ def run_episode(spec: dict, policy, run_id: str) -> dict:
         "token_usage": token_usage,
     }
     append_jsonl_log(run_id, "episode_end", result)
+    if hasattr(policy, "on_episode_end"):
+        policy.on_episode_end(result, run_id)
     return result

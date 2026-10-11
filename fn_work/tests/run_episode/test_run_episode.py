@@ -173,3 +173,45 @@ def test_bare_policy_defaults_scene_and_zero_usage(monkeypatch):
     assert result["token_usage"] == {"prompt_tokens": 0, "completion_tokens": 0, "calls": 0}
     # scene 缺省 experiment：假 env 的 step 正常返回（submit_action 未因 scene 拒绝）
     assert env.results == []
+
+
+# ⑥ 策略协议钩子：on_episode_start/on_episode_end 检测到即调用；异常透传
+
+
+def test_hooks_called_with_spec_result_and_run_id(monkeypatch):
+    _, logs = _install(monkeypatch, [_obs("WIN")])
+    calls = []
+
+    class _Hooked:
+        scene = "experiment"
+        total_usage = {"prompt_tokens": 0, "completion_tokens": 0, "calls": 0}
+
+        def on_episode_start(self, spec, run_id):
+            calls.append(("start", spec, run_id))
+
+        def act(self, obs):
+            return {"name": "ACTION1"}
+
+        def on_episode_end(self, result, run_id):
+            calls.append(("end", result, run_id))
+
+    result = run_episode({"game_id": "ls20"}, _Hooked(), "run-hooks")
+
+    assert calls[0] == ("start", {"game_id": "ls20"}, "run-hooks")
+    assert calls[1][0] == "end" and calls[1][1] is result and calls[1][2] == "run-hooks"
+
+
+def test_hook_exception_propagates(monkeypatch):
+    _install(monkeypatch, [_obs("WIN")])
+
+    class _Boom:
+        scene = "experiment"
+
+        def on_episode_start(self, spec, run_id):
+            raise RuntimeError("hook boom")
+
+        def act(self, obs):
+            return {"name": "ACTION1"}
+
+    with pytest.raises(RuntimeError, match="hook boom"):
+        run_episode({"game_id": "ls20"}, _Boom(), "run-boom")

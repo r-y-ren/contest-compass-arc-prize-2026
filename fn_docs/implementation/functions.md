@@ -13,10 +13,10 @@
 | make_baseline_policy | B2 | wired 10-10 | pytest tests/make_baseline_policy/test_make_baseline_policy.py → 14 passed（构造校验/解析+确定性回退/usage 累计/异常透传/model 透传） | 本批 |
 | connect_env | B2 | wired 10-10 | pytest tests/run_episode/test_connect_env.py → 10 passed（假 SDK 注入/真 FrameDataRaw 归一化/make·reset 判空与异常包装/spec 校验） | 本批 |
 | submit_action | B2 | wired 10-10 | pytest tests/run_episode/test_submit_action.py → 14 passed（结构校验+错误码/None 场景归一 experiment 抛·submit 哨兵/跨模块动作名守卫） | 本批 |
-| run_episode | B2 | wired 10-10 | pytest tests/run_episode/test_run_episode.py → 7 passed；实跑：真 SDK vc33 匿名局 50 步 GAME_OVER，EpisodeResult+50 步日志落 fn_work/logs/20261010.jsonl（策略为脚本件——27B vLLM 缺位，blocked 待门裁决） | 本批 |
+| run_episode | B2 | wired 10-10；B3 钩子扩展 10-11 | pytest tests/run_episode/test_run_episode.py → 9 passed（+可选 on_episode_start/end 钩子，R3/R4 包装局边界信号，Ruling 已记）；实跑：真 SDK vc33 匿名局 50 步 GAME_OVER（策略为脚本件——27B vLLM 缺位，D1 挂账） | 本批 |
 | estimate_difficulty | B3 | wired 10-11 | pytest tests/make_curriculum_policy/test_estimate_difficulty.py → 8 passed（公式分量/钳制/空记录低置信/纯函数/脏记录容错） | 本批 |
 | select_experience_source | B3 | wired 10-11 | pytest tests/make_curriculum_policy/test_select_experience_source.py → 10 passed（先易后难+利用计数 score 决胜/平手链/理由串/池校验/确定性） | 本批 |
-| make_curriculum_policy | B3 | stub 2026-10-10 | 测试: tests/make_curriculum_policy/test_make_curriculum_policy.py；集成继承 R3 | — |
+| make_curriculum_policy | B3 | wired 10-11 | pytest tests/make_curriculum_policy/test_make_curriculum_policy.py → 10 passed（选源落日志/obs 注入转发/局终回填难度/轮转/确定性） | 本批 |
 | update_experience_store | B3 | stub 2026-10-10 | 测试: tests/make_regularized_policy/test_update_experience_store.py | — |
 | regularize_experience | B3 | stub 2026-10-10 | 测试: tests/make_regularized_policy/test_regularize_experience.py | — |
 | make_regularized_policy | B3 | stub 2026-10-10 | 测试: tests/make_regularized_policy/test_make_regularized_policy.py；集成继承 R4 | — |

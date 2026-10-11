@@ -17,3 +17,4 @@
 | 2026-10-10 | Ruling 互指 | llm_complete 签名微调：+可选 model 参数（详见 tracker Ruling 行）；随 make_baseline_policy 批次实施 |
 | 2026-10-10 | B2 收档 | SDK 实核前置（references/arc_agi_3_sdk.md+INDEX，abb261c）+债务①②已清+五函数 wired；验收点"裸基线单局实跑"以真 SDK+脚本策略替代达成，27B vLLM 缺口挂 blocked（tracker 注记）待用户裁决 |
 | 2026-10-10 | B2 批间评审 | 三轴过门（建议级 4 项）；债务登记：D1 baseline 真 LLM 端到端+确定性双跑（随 27B 落地补，继承 blocked）、D2 步日志 obs 摘要策略（B4 eval_ab 集成前定义）、D3 logs/ 入库保留策略（B4 前定：证据性实跑入库/常规跑批落 runs/ 不入库）、D4 submit_action 错误码佐证（R1 集成验收时 SDK 侧日志佐证或明示接受） |
+| 2026-10-11 | Ruling 互指 | run_episode 策略协议扩展（+可选局边界钩子，详见 tracker Ruling 行）；随 make_curriculum_policy 批次实施
