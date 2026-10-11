@@ -79,10 +79,10 @@
 
 ## B3 — estimate_difficulty, select_experience_source, make_curriculum_policy, update_experience_store, regularize_experience, make_regularized_policy
 ### estimate_difficulty
-- [ ] estimate_difficulty · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] estimate_difficulty · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] estimate_difficulty · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] estimate_difficulty · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] estimate_difficulty · implemented — 证据: bash -c ! grep -q "unimplemented:fn:estimate_difficulty" fn_work/src/make_curriculum_policy/estimate_difficulty.py && echo 桩已替换 → 桩已替换 (10-11)
+- [x] estimate_difficulty · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/make_curriculum_policy/test_estimate_difficulty.py -q 2>&1 | tail -1 → 8 passed in 0.01s (10-11)
+- [x] estimate_difficulty · wired — 证据: bash -c grep -q "estimate_difficulty" fn_work/tests/make_curriculum_policy/test_estimate_difficulty.py && echo 测试调用点在（弱判据；生产调用方 select_experience_source 本批下一函数落地后补验） → 测试调用点在（弱判据；生产调用方 select_experience_source 本批下一函数落地后补验） (10-11)
+- [x] estimate_difficulty · 清单进位 — 证据: bash -c grep -q "estimate_difficulty | B3 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
 - [ ] estimate_difficulty · commit — 预告: fn(estimate_difficulty): wired 含四文档变更
 ### select_experience_source
 - [ ] select_experience_source · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留

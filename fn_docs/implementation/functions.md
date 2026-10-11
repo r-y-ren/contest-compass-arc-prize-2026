@@ -14,7 +14,7 @@
 | connect_env | B2 | wired 10-10 | pytest tests/run_episode/test_connect_env.py → 10 passed（假 SDK 注入/真 FrameDataRaw 归一化/make·reset 判空与异常包装/spec 校验） | 本批 |
 | submit_action | B2 | wired 10-10 | pytest tests/run_episode/test_submit_action.py → 14 passed（结构校验+错误码/None 场景归一 experiment 抛·submit 哨兵/跨模块动作名守卫） | 本批 |
 | run_episode | B2 | wired 10-10 | pytest tests/run_episode/test_run_episode.py → 7 passed；实跑：真 SDK vc33 匿名局 50 步 GAME_OVER，EpisodeResult+50 步日志落 fn_work/logs/20261010.jsonl（策略为脚本件——27B vLLM 缺位，blocked 待门裁决） | 本批 |
-| estimate_difficulty | B3 | stub 2026-10-10 | 测试: tests/make_curriculum_policy/test_estimate_difficulty.py | — |
+| estimate_difficulty | B3 | wired 10-11 | pytest tests/make_curriculum_policy/test_estimate_difficulty.py → 8 passed（公式分量/钳制/空记录低置信/纯函数/脏记录容错） | 本批 |
 | select_experience_source | B3 | stub 2026-10-10 | 测试: tests/make_curriculum_policy/test_select_experience_source.py | — |
 | make_curriculum_policy | B3 | stub 2026-10-10 | 测试: tests/make_curriculum_policy/test_make_curriculum_policy.py；集成继承 R3 | — |
 | update_experience_store | B3 | stub 2026-10-10 | 测试: tests/make_regularized_policy/test_update_experience_store.py | — |
