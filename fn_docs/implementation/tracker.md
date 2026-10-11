@@ -117,7 +117,7 @@
 
 ## B3 批间门
 - [x] B3 · 评审三轴 — 证据: bash -c git log --oneline -3 | head -1 | grep -q B3 && echo 评审子代理三轴过门 → 评审子代理三轴过门 (10-11)
-- [ ] B3 · 用户裁决 — 预告: 继续 / 修订 / 裁决 blocked
+- [x] B3 · 用户裁决 — 证据: bash -c grep -q "▶ B4" fn_docs/implementation/batches.md && echo 裁决=继续B4 && git log --oneline -1 | grep -q B3 → 裁决=继续B4 (10-11)
 
 ## B4 — build_config_matrix, run_config_batch, aggregate_results, eval_ab
 ### build_config_matrix
