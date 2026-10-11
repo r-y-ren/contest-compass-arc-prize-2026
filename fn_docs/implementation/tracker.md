@@ -121,10 +121,10 @@
 
 ## B4 — build_config_matrix, run_config_batch, aggregate_results, eval_ab
 ### build_config_matrix
-- [ ] build_config_matrix · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] build_config_matrix · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] build_config_matrix · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] build_config_matrix · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] build_config_matrix · implemented — 证据: bash -c ! grep -q unimplemented:fn:build_config_matrix fn_work/src/eval_ab/build_config_matrix.py && echo 桩已替换 → 桩已替换 (10-11)
+- [x] build_config_matrix · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/eval_ab/test_build_config_matrix.py -q → 14 passed in 0.01s (10-11)
+- [x] build_config_matrix · wired — 证据: bash -c grep -q build_config_matrix fn_work/tests/eval_ab/test_build_config_matrix.py && echo 测试调用点在（弱判据；生产调用方 eval_ab 本批后段落地后补验） → 测试调用点在（弱判据；生产调用方 eval_ab 本批后段落地后补验） (10-11)
+- [x] build_config_matrix · 清单进位 — 证据: bash -c grep -q "build_config_matrix | B4 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
 - [ ] build_config_matrix · commit — 预告: fn(build_config_matrix): wired 含四文档变更
 ### run_config_batch
 - [ ] run_config_batch · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留

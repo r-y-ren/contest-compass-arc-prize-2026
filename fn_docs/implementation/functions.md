@@ -20,7 +20,7 @@
 | update_experience_store | B3 | wired 10-11 | pytest tests/make_regularized_policy/test_update_experience_store.py → 9 passed（入库字段/截断标志/容量淘汰最旧/旧条目零改动/空库起库/校验） | 本批 |
 | regularize_experience | B3 | wired 10-11 | pytest tests/make_regularized_policy/test_regularize_experience.py → 9 passed（打分截断/相关性·新近度·去重/逐条取舍日志/浅拷贝隔离/确定性） | 本批 |
 | make_regularized_policy | B3 | wired 10-11 | pytest tests/make_regularized_policy/test_make_regularized_policy.py → 9 passed（经验注入转发/两版入库：原始关键步+正则决策 JSONL/跨局累积容量淘汰/构造校验） | 本批 |
-| build_config_matrix | B4 | stub 2026-10-10 | 测试: tests/eval_ab/test_build_config_matrix.py | — |
+| build_config_matrix | B4 | wired 10-11 | pytest tests/eval_ab/test_build_config_matrix.py → 14 passed（默认四配置全因子/规范化参数缺省/纯函数/声明校验七态） | 本批 |
 | run_config_batch | B4 | stub 2026-10-10 | 上游覆盖: eval_ab | — |
 | aggregate_results | B4 | stub 2026-10-10 | 测试: tests/eval_ab/test_aggregate_results.py | — |
 | eval_ab | B4 | stub 2026-10-10 | 测试: tests/eval_ab/test_eval_ab.py；集成=R5: python eval_ab.py --episodes N --seed S 两跑同向 | — |
