@@ -143,11 +143,11 @@
 - [x] eval_ab · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/eval_ab/test_eval_ab.py -q → 11 passed in 0.05s (10-11)
 - [x] eval_ab · wired — 证据: bash -c grep -q "from src.eval_ab.eval_ab import eval_ab" fn_work/eval_ab.py && echo CLI 生产调用点在（eval_ab.py 入口）；端到端实跑随后补证 → CLI 生产调用点在（eval_ab.py 入口）；端到端实跑随后补证 (10-11)
 - [x] eval_ab · 清单进位 — 证据: bash -c grep -q "eval_ab | B4 | wired 10-11" fn_docs/implementation/functions.md && grep -q "baseline,baseline,2" fn_work/runs/eval-1791683161-s42/ab_table.csv && echo 清单行+E2E 证据已落 → 清单行+E2E 证据已落 (10-11)
-- [ ] eval_ab · commit — 预告: fn(eval_ab): wired 含四文档变更
+- [x] eval_ab · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(eval_ab): wired" && echo commit 在 → commit 在 (10-11)
 
 ## B4 批间门
-- [ ] B4 · 评审三轴 — 预告: 规格/标准/档案同步（含 tracker 本批行核对）
-- [ ] B4 · 用户裁决 — 预告: 继续 / 修订 / 裁决 blocked
+- [x] B4 · 评审三轴 — 证据: bash -c git log --oneline -1 | grep -q "S1-S3" && echo "评审子代理三轴 17/17 过门（S1-S3 已清 32d262a）" → 评审子代理三轴 17/17 过门（S1-S3 已清 32d262a） (10-11)
+- [x] B4 · 用户裁决 — 证据: bash -c grep -q "▶ B5" fn_docs/implementation/batches.md && echo 裁决=继续B5 → 裁决=继续B5 (10-11)
 
 ## B5 — render_submission_entry, verify_package_layout, build_kaggle_package, submit_package, collect_run_artifacts, render_gain_table, write_report
 ### render_submission_entry
