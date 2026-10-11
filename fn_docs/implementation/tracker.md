@@ -161,12 +161,12 @@
 - [x] verify_package_layout · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/build_kaggle_package/test_verify_package_layout.py -q → 5 passed in 0.01s (10-11)
 - [x] verify_package_layout · wired — 证据: bash -c grep -q verify_package_layout fn_work/tests/build_kaggle_package/test_verify_package_layout.py && echo 测试调用点在（弱判据；生产调用方 build_kaggle_package 本批下一函数落地后补验） → 测试调用点在（弱判据；生产调用方 build_kaggle_package 本批下一函数落地后补验） (10-11)
 - [x] verify_package_layout · 清单进位 — 证据: bash -c grep -q "verify_package_layout | B5 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
-- [ ] verify_package_layout · commit — 预告: fn(verify_package_layout): wired 含四文档变更
+- [x] verify_package_layout · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(verify_package_layout): wired" && echo commit 在 → commit 在 (10-11)
 ### build_kaggle_package
-- [ ] build_kaggle_package · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] build_kaggle_package · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] build_kaggle_package · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] build_kaggle_package · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] build_kaggle_package · implemented — 证据: bash -c ! grep -q unimplemented:fn:build_kaggle_package fn_work/src/build_kaggle_package/build_kaggle_package.py && echo 桩已替换 → 桩已替换 (10-11)
+- [x] build_kaggle_package · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/build_kaggle_package/test_build_kaggle_package.py -q → 5 passed in 0.03s (10-11)
+- [x] build_kaggle_package · wired — 证据: bash -c grep -q render_submission_entry fn_work/src/build_kaggle_package/build_kaggle_package.py && grep -q verify_package_layout fn_work/src/build_kaggle_package/build_kaggle_package.py && echo 生产调用点在（render/verify 由本函数调用） → 生产调用点在（render/verify 由本函数调用） (10-11)
+- [x] build_kaggle_package · 清单进位 — 证据: bash -c grep -q "build_kaggle_package | B5 | wired 10-11" fn_docs/implementation/functions.md && echo 清单行已落 → 清单行已落 (10-11)
 - [ ] build_kaggle_package · commit — 预告: fn(build_kaggle_package): wired 含四文档变更
 ### submit_package
 - [ ] submit_package · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
