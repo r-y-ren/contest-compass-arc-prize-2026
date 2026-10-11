@@ -4,8 +4,7 @@
 | 批次 | 函数/任务清单 | 验收点 | 注 |
 |---|---|---|---|
 | B1 | llm_complete, render_obs, append_jsonl_log, load_episode_set | 四共享 wired + pytest 基线恢复 26 skipped/0 error | 含新增改动：scaffold 占位测试补 import pytest（对账发现，随批修复） |
-| ▶ B3 | estimate_difficulty, select_experience_source, make_curriculum_policy, update_experience_store, regularize_experience, make_regularized_policy | 两包装策略 wired（可包装 baseline 出可跑策略对象） |  |
-| B4 | build_config_matrix, run_config_batch, aggregate_results, eval_ab | eval_ab wired + 小局集端到端（假 LLM）对照表产出 |  |
+| ▶ B4 | build_config_matrix, run_config_batch, aggregate_results, eval_ab | eval_ab wired + 小局集端到端（假 LLM）对照表产出 | 债务 D2（步日志 obs 摘要策略）、D3（logs 保留策略）本批收档前须清；D1 随 27B 服务落地补、D4 随 R1 集成验收 |
 | B5 | render_submission_entry, verify_package_layout, build_kaggle_package, submit_package, collect_run_artifacts, render_gain_table, write_report | 打包/提交/报告三口 wired（提交口以 dry-run 或 CLI 回执为准） | render_submission_entry 契约以赛站实核模板为准（B2 已核则引用） |
 
 ## 变更记录（计划层事件：签名微调、需求变更往返、放弃等）
@@ -17,4 +16,5 @@
 | 2026-10-10 | Ruling 互指 | llm_complete 签名微调：+可选 model 参数（详见 tracker Ruling 行）；随 make_baseline_policy 批次实施 |
 | 2026-10-10 | B2 收档 | SDK 实核前置（references/arc_agi_3_sdk.md+INDEX，abb261c）+债务①②已清+五函数 wired；验收点"裸基线单局实跑"以真 SDK+脚本策略替代达成，27B vLLM 缺口挂 blocked（tracker 注记）待用户裁决 |
 | 2026-10-10 | B2 批间评审 | 三轴过门（建议级 4 项）；债务登记：D1 baseline 真 LLM 端到端+确定性双跑（随 27B 落地补，继承 blocked）、D2 步日志 obs 摘要策略（B4 eval_ab 集成前定义）、D3 logs/ 入库保留策略（B4 前定：证据性实跑入库/常规跑批落 runs/ 不入库）、D4 submit_action 错误码佐证（R1 集成验收时 SDK 侧日志佐证或明示接受） |
-| 2026-10-11 | Ruling 互指 | run_episode 策略协议扩展（+可选局边界钩子，详见 tracker Ruling 行）；随 make_curriculum_policy 批次实施
+| 2026-10-11 | Ruling 互指 | run_episode 策略协议扩展（+可选局边界钩子，详见 tracker Ruling 行）；随 make_curriculum_policy 批次实施 |
+| 2026-10-11 | B3 收档 | 六函数 wired（两包装策略+两降级件+难度/选源）；含 run_episode 钩子协议扩展 Ruling；pytest 161 passed/11 skipped |
