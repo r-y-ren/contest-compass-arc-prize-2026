@@ -1,0 +1,2 @@
+name,policy,episodes,wins,success_rate,avg_steps,duration_s,prompt_tokens,completion_tokens,d_success_rate,d_avg_steps
+baseline,baseline,2,0,0.0,75.0,0.683,1400,600,0.0,0.0

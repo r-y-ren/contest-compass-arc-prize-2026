@@ -137,12 +137,12 @@
 - [x] aggregate_results · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/eval_ab/test_aggregate_results.py -q → 8 passed in 0.01s (10-11)
 - [x] aggregate_results · wired — 证据: bash -c grep -q aggregate_results fn_work/tests/eval_ab/test_aggregate_results.py && echo 测试调用点在（弱判据；生产调用方 eval_ab 本批下一函数落地后补验） → 测试调用点在（弱判据；生产调用方 eval_ab 本批下一函数落地后补验） (10-11)
 - [x] aggregate_results · 清单进位 — 证据: bash -c grep -q "aggregate_results | B4 | wired 10-11" fn_docs/implementation/functions.md && grep -q "Ruling: aggregate_results" fn_docs/implementation/tracker.md && echo 清单行+Ruling 已落 → 清单行+Ruling 已落 (10-11)
-- [ ] aggregate_results · commit — 预告: fn(aggregate_results): wired 含四文档变更
+- [x] aggregate_results · commit — 证据: bash -c git log --oneline -1 | grep -q "fn(aggregate_results): wired" && echo commit 在 → commit 在 (10-11)
 ### eval_ab
-- [ ] eval_ab · implemented — 预告: 桩替换为真值，预期该名桩 grep 无残留
-- [ ] eval_ab · tested — 预告: 核验命令绿（自有单测或上游覆盖）
-- [ ] eval_ab · wired — 预告: 调用点存在（grep 命中）；顶层入口实跑有输出
-- [ ] eval_ab · 清单进位 — 预告: functions.md 状态行改后读回
+- [x] eval_ab · implemented — 证据: bash -c ! grep -q unimplemented:fn:eval_ab fn_work/src/eval_ab/eval_ab.py && echo 桩已替换 → 桩已替换 (10-11)
+- [x] eval_ab · tested — 证据: bash -c cd fn_work && venv/bin/python -m pytest tests/eval_ab/test_eval_ab.py -q → 11 passed in 0.05s (10-11)
+- [x] eval_ab · wired — 证据: bash -c grep -q "from src.eval_ab.eval_ab import eval_ab" fn_work/eval_ab.py && echo CLI 生产调用点在（eval_ab.py 入口）；端到端实跑随后补证 → CLI 生产调用点在（eval_ab.py 入口）；端到端实跑随后补证 (10-11)
+- [x] eval_ab · 清单进位 — 证据: bash -c grep -q "eval_ab | B4 | wired 10-11" fn_docs/implementation/functions.md && grep -q "baseline,baseline,2" fn_work/runs/eval-1791683161-s42/ab_table.csv && echo 清单行+E2E 证据已落 → 清单行+E2E 证据已落 (10-11)
 - [ ] eval_ab · commit — 预告: fn(eval_ab): wired 含四文档变更
 
 ## B4 批间门

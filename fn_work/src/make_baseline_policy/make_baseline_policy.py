@@ -41,10 +41,17 @@ class ConfigError(RuntimeError):
 
 
 def _fallback_action(obs: dict) -> dict:
-    """确定性回退：available_actions 首个合法编号的动作；列表空/全非法时 RESET。"""
+    """确定性回退：available_actions 首个合法编号的动作；列表空/全非法时 RESET。
+
+    ACTION6 是唯一带坐标动作，回退时补中心坐标 (32, 32)——否则结构校验
+    （submit_action INVALID_COORDS）必拒（B4 端到端预演发现，2026-10-11 修复）。
+    """
     for action_id in obs.get("available_actions") or []:
         if isinstance(action_id, int) and 0 <= action_id < len(ACTION_NAMES):
-            return {"name": ACTION_NAMES[action_id]}
+            name = ACTION_NAMES[action_id]
+            if name == "ACTION6":
+                return {"name": "ACTION6", "x": 32, "y": 32}
+            return {"name": name}
     return {"name": "RESET"}
 
 

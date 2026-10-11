@@ -23,7 +23,7 @@
 | build_config_matrix | B4 | wired 10-11 | pytest tests/eval_ab/test_build_config_matrix.py → 14 passed（默认四配置全因子/规范化参数缺省/纯函数/声明校验七态） | 本批 |
 | run_config_batch | B4 | wired 10-11 | pytest tests/eval_ab/test_run_config_batch.py → 7 passed（四组合包装层序/指标数学/任一局失败中止附局 ID/构造失败中止/空局集） | 本批 |
 | aggregate_results | B4 | wired 10-11 | pytest tests/eval_ab/test_aggregate_results.py → 8 passed（增益列对 baseline/CSV 落盘 out_dir/文本表对齐/缺列与无 baseline 报错）；签名微调：+可选 out_dir（Ruling 已记） | 本批 |
-| eval_ab | B4 | stub 2026-10-10 | 测试: tests/eval_ab/test_eval_ab.py；集成=R5: python eval_ab.py --episodes N --seed S 两跑同向 | — |
+| eval_ab | B4 | wired 10-11 | pytest tests/eval_ab/test_eval_ab.py → 11 passed；端到端实跑：真 CLI+真 SDK 2 局（vc33/cd82）+假 vLLM 存根（真 HTTP 200 次调用），对照表 stdout+CSV 入库 fn_work/runs/eval-1791683161-s42/ | 本批 |
 | render_submission_entry | B5 | stub 2026-10-10 | 上游覆盖: build_kaggle_package | — |
 | verify_package_layout | B5 | stub 2026-10-10 | 测试: tests/build_kaggle_package/test_verify_package_layout.py | — |
 | build_kaggle_package | B5 | stub 2026-10-10 | 测试: tests/build_kaggle_package/test_build_kaggle_package.py；集成继承 R6 | — |

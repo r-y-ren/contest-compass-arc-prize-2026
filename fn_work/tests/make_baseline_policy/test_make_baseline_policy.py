@@ -167,3 +167,12 @@ def test_model_config_forwarded_to_llm(monkeypatch):
     policy.act(_obs())
 
     assert fake.calls[0]["model"] == "qwen3-32b"
+
+
+def test_fallback_to_action6_carries_center_coords(monkeypatch):
+    """ACTION6-only 局（如 vc33 click 游戏）：回退必须带坐标，否则 submit_action 结构校验必拒。"""
+    policy, _ = _policy(monkeypatch, ["garbage reply"])
+
+    action = policy.act(_obs(available=(6,)))
+
+    assert action == {"name": "ACTION6", "x": 32, "y": 32}
