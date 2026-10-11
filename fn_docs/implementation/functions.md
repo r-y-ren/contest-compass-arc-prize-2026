@@ -17,7 +17,7 @@
 | estimate_difficulty | B3 | wired 10-11 | pytest tests/make_curriculum_policy/test_estimate_difficulty.py → 8 passed（公式分量/钳制/空记录低置信/纯函数/脏记录容错） | 本批 |
 | select_experience_source | B3 | wired 10-11 | pytest tests/make_curriculum_policy/test_select_experience_source.py → 10 passed（先易后难+利用计数 score 决胜/平手链/理由串/池校验/确定性） | 本批 |
 | make_curriculum_policy | B3 | wired 10-11 | pytest tests/make_curriculum_policy/test_make_curriculum_policy.py → 10 passed（选源落日志/obs 注入转发/局终回填难度/轮转/确定性） | 本批 |
-| update_experience_store | B3 | stub 2026-10-10 | 测试: tests/make_regularized_policy/test_update_experience_store.py | — |
+| update_experience_store | B3 | wired 10-11 | pytest tests/make_regularized_policy/test_update_experience_store.py → 9 passed（入库字段/截断标志/容量淘汰最旧/旧条目零改动/空库起库/校验） | 本批 |
 | regularize_experience | B3 | stub 2026-10-10 | 测试: tests/make_regularized_policy/test_regularize_experience.py | — |
 | make_regularized_policy | B3 | stub 2026-10-10 | 测试: tests/make_regularized_policy/test_make_regularized_policy.py；集成继承 R4 | — |
 | build_config_matrix | B4 | stub 2026-10-10 | 测试: tests/eval_ab/test_build_config_matrix.py | — |
