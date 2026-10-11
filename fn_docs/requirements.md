@@ -55,7 +55,7 @@
 
 ### R6 Kaggle 可提交 agent 包 [P0]
 - 内容：按赛站契约打包最优配置（提交态异常=有限重试→降级继续）。
-- 验收方式：命令化——`kaggle competitions submit <赛站ID> -f <包>` 返回成功且赛站页面可查接收记录。
+- 验收方式：命令化——starter kit notebook 组装并推送（`make submit` → `kaggle kernels push`）成功，网页 "Submit to Competition" 后赛站页面可查接收记录（契约实核见 references/kaggle_competition_contract.md；2026-10-11 修订，原 `-f` 直接提包形态为计划期假定）
 
 ### R7 复现报告 [P0]
 - 内容：增益表 + 配置说明 + 每个数字的运行产物路径（`fn_work/runs/`）。
@@ -98,3 +98,4 @@
 | 日期 | 变更 | 原因 |
 |---|---|---|
 | 2026-10-10 | 初版（R1-R7） | fn-grill 八条实问定稿 |
+| 2026-10-11 | R6 验收命令措辞修订 | 依赛站实核契约（references/kaggle_competition_contract.md）：code competition 提交通道为 notebook push+网页提交；用户 2026-10-11 确认 |

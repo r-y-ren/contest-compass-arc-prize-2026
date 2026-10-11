@@ -23,3 +23,5 @@
 | 2026-10-11 | Ruling 互指 | R6 提交命令形态偏差（code competition 契约，详见 tracker Ruling 行）；随 submit_package 批次实施；赛站实核补充：arc-prize-2026-arc-agi-3 榜单可查（榜首 62.96） |
 | 2026-10-11 | B5 收档 | 七函数 wired（打包/提交/报告三口）；赛站契约实核前置（code competition/notebook，kaggle CLI 查得 arc-prize-2026-arc-agi-3）；R6 命令形态偏差 Ruling；pytest 244 passed/0 skipped、桩清零——**战役 26/26 全 wired** |
 | 2026-10-11 | B5 批间评审 | 有条件过门→条件清：tracker 勾收编/dry-run 回执抄 runs/ 留证/杂散目录清除/赛站契约实核落 references+INDEX（评审建议②）/措辞级 Ruling×2 备案（py_compile 语义/行级溯源粒度）；D4 挂账落点移交 fn-close 处置（补 SDK 侧错误码佐证或明示接受） |
+| 2026-10-11 | D4 销账（明示接受） | SDK 层吞 REST 错误码为实核平台行为（references/arc_agi_3_sdk.md f 节）；项目错误分类法以 submit_action 自定码（INVALID_ACTION/INVALID_COORDS/COORDS_OUT_OF_RANGE）+EnvError 为准；用户 2026-10-11 确认 |
+| 2026-10-11 | D1 部署路径裁决 | tower（3090Ti 24G）部署 27B INT4/AWQ 补跑 R5 双跑；据结果再议是否升级算力（用户 2026-10-11）；R2 维持 27B 口径，量化格式 FP8→INT4 偏差随部署提交登记 |
