@@ -26,6 +26,25 @@ _TERMINAL_STATES = ("WIN", "GAME_OVER")
 MAX_STEPS = 1024
 
 
+def _obs_summary(obs: dict) -> dict:
+    """步日志用观测摘要（D2 策略，2026-10-11 定）：状态/进度/可用动作/帧形状。
+
+    不落全量 frame（64×64×多帧逐步落盘会爆日志）；帧形状保留可回放定位
+    （哪步几帧、每帧多大），完整局面可由 seed+动作序列重建。
+    """
+    frames = obs.get("frame") or []
+    frame_shapes = [
+        [len(frame), len(frame[0]) if frame else 0] for frame in frames if isinstance(frame, list)
+    ]
+    return {
+        "state": obs.get("state"),
+        "levels_completed": obs.get("levels_completed"),
+        "win_levels": obs.get("win_levels"),
+        "available_actions": obs.get("available_actions"),
+        "frame_shapes": frame_shapes,
+    }
+
+
 def run_episode(spec: dict, policy, run_id: str) -> dict:
     """执行一局完整交互，返回 EpisodeResult dict。
 
@@ -46,6 +65,7 @@ def run_episode(spec: dict, policy, run_id: str) -> dict:
     steps = 0
     while obs.get("state") not in _TERMINAL_STATES and steps < MAX_STEPS:
         step_started = time.perf_counter()
+        acted_summary = _obs_summary(obs)
         action = policy.act(obs)
         next_obs = submit_action(env, action, scene)
         steps += 1
@@ -59,6 +79,7 @@ def run_episode(spec: dict, policy, run_id: str) -> dict:
                 "state": next_obs.get("state"),
                 "levels_completed": next_obs.get("levels_completed"),
                 "latency_ms": int((time.perf_counter() - step_started) * 1000),
+                "obs_summary": acted_summary,
             },
         )
         if next_obs.get("state") != STEP_FAILED_STATE:

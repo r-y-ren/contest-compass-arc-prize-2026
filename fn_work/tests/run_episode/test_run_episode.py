@@ -215,3 +215,22 @@ def test_hook_exception_propagates(monkeypatch):
 
     with pytest.raises(RuntimeError, match="hook boom"):
         run_episode({"game_id": "ls20"}, _Boom(), "run-boom")
+
+
+# ⑦ D2：步日志含 obs_summary（状态/进度/可用动作/帧形状，无全量帧）
+
+
+def test_step_log_carries_obs_summary(monkeypatch):
+    obs = _obs()
+    obs["frame"] = [[[0] * 4] * 3, [[1] * 2] * 2]  # 两帧：3x4 与 2x2
+    _, logs = _install(monkeypatch, [_obs("WIN")], initial_obs=obs)
+    policy = _FakePolicy([{"name": "ACTION1"}])
+
+    run_episode({"game_id": "ls20"}, policy, "run-d2")
+
+    step_payload = next(p for event, p in logs if event == "step")
+    summary = step_payload["obs_summary"]
+    assert summary["frame_shapes"] == [[3, 4], [2, 2]]
+    assert summary["available_actions"] == [0, 1, 2]
+    assert summary["state"] == "NOT_FINISHED" and summary["win_levels"] == 254
+    assert "frame" not in summary  # 摘要不携全量帧

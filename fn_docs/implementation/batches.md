@@ -20,3 +20,4 @@
 | 2026-10-11 | B3 收档 | 六函数 wired（两包装策略+两降级件+难度/选源）；含 run_episode 钩子协议扩展 Ruling；pytest 161 passed/11 skipped |
 | 2026-10-11 | B3 批间评审 | 三轴 17/17 过门零阻断；建议级并入 B4 复核：钩子 start/end 失败不对称（connect_env 抛错则 end 永不触发，B4 失败重试设计须知晓）；estimate_difficulty 记录口径（尝试次数=len(history)）备察 |
 | 2026-10-11 | Ruling 互指 | aggregate_results 签名微调：+可选 out_dir 参数（详见 tracker Ruling 行）；随 B4 实施 |
+| 2026-10-11 | D2/D3 债务清账 | D2：步日志补 obs_summary（状态/进度/可用动作/帧形状，无全量帧防爆炸，可回放定位）；D3：fn_work/logs/ 入 ignore（常规跑批日志不入库，B2 期已入库的历史证据保留），证据性产物走 fn_work/runs/ 入库（指标件 CSV 等），需日志级证据时 ARC_LOG_DIR 指向 run 子目录强加 |
