@@ -1,0 +1,5 @@
+name,policy,episodes,wins,success_rate,avg_steps,duration_s,prompt_tokens,completion_tokens,d_success_rate,d_avg_steps
+baseline,baseline,2,0,0.0,75.0,140.638,397312,1344,0.0,0.0
+plus_curriculum,curriculum,2,0,0.0,75.0,141.035,384311,1250,0.0,0.0
+plus_regularized,regularized,2,0,0.0,75.0,145.461,327709,1350,0.0,0.0
+full,curriculum+regularized,2,0,0.0,75.0,139.234,384311,1250,0.0,0.0
