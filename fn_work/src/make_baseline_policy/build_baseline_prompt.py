@@ -8,7 +8,10 @@ from src.shared.render_obs import render_obs
 
 # 观测视图字符预算：64×64×多帧网格序列化后可达数万字符，预算内截断保头（保住网格
 # 开头比保尾对局面理解更重要，且截断行为确定性可复现）。
-OBS_BUDGET = 4000
+# 2500 字符（Ruling 2026-10-12：原 4000）——数字网格 token 化率 ~1 token/字符，
+# 4000 字符实测 4033 token 顶爆 tower 27B INT4 的 4096 上下文；2500 字符 ≈ 2700
+# token + 模板 ~350 + 回复 64，留出余量。
+OBS_BUDGET = 2500
 
 BASELINE_SYSTEM_PROMPT = (
     "You are an agent playing an ARC-AGI-3 interactive game.\n"

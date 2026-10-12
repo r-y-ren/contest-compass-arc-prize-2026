@@ -206,3 +206,5 @@
 - Ruling: R6 提交命令形态与赛站实核契约偏差 — 原因：requirements R6 验收原文假定 kaggle competitions submit -f <包>，实核（arc-prize-2026.md 2026-10-11）确认为 code competition：starter kit notebook 组装（make submit→kernels push）+网页 Submit to Competition — 代价：submit_package 实跑模式按计划形态执行、被拒时 SubmitError 原样暴露 CLI 输出；真实提交需 kit notebook 组装且属外部动作留用户授权（默认 dry_run） — 落点：batches.md 变更记录互指；requirements R6 措辞待 fn-close 前修订
 - Ruling: verify_package_layout「入口可导入性」实现为 py_compile 语法级检查 — 原因：importlib 真导入需在包上下文解析 arcengine/src 依赖，脱离目标环境不可靠 — 代价：检出力限于语法错误，导入期错误（如依赖缺失）不被捕获 — 落点：verify_package_layout docstring；fn-close 备查
 - Ruling: render_gain_table「逐数字内联挂链接」实现为行级 source 列（run 目录+csv 双链） — 原因：同行数字同源（同 run 同 CSV），行级链接可溯性等价且表可读 — 代价：粒度为行非单元格 — 落点：render_gain_table docstring；R7 验收判据（按路径找到产物且数字一致）实测成立
+- Ruling: OBS_BUDGET 4000→2500 字符（build_baseline_prompt） — 原因：数字网格 token 化率 ~1 token/字符，4000 字符实测 4033 token 顶爆 tower 27B INT4 服务 4096 上下文（KV 显存上限） — 代价：观测视图更早截断保头 — 落点：build_baseline_prompt.py 常量与注释
+- Ruling: 课程 sources 缺省按局集合成源池（run_config_batch.build_policy） — 原因：默认矩阵 curriculum_config 为空，真跑第一局即 CurriculumError（27B 补跑实测暴露） — 代价：缺省行为从报错改为合成池（每局一源、难度随局累积）；显式 sources 不受影响 — 落点：run_config_batch.py docstring+2 测

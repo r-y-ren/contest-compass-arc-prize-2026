@@ -22,20 +22,28 @@ class ExperimentAbortError(RuntimeError):
     """实验中止：配置构造失败或某局失败（消息附配置名/局 ID 与原因）。"""
 
 
-def build_policy(config: dict):
-    """按配置的策略组合构造策略对象（scene 恒 experiment，工厂各自套参数默认）。"""
+def build_policy(config: dict, episode_ids: list = None):
+    """按配置的策略组合构造策略对象（scene 恒 experiment，工厂各自套参数默认）。
+
+    课程组合 sources 缺省补全（Ruling 2026-10-12）：curriculum_config 未给 sources
+    时按局集合成源池——每个局 ID 一个源、初始历史为空（难度随局累积），
+    保证 A/B 全因子阵开箱可跑。
+    """
     scene = config.get("scene", "experiment")
     baseline = make_baseline_policy({**config.get("baseline_config", {}), "scene": scene})
     policy_kind = config.get("policy")
     if policy_kind == "baseline":
         return baseline
-    if policy_kind == "curriculum":
-        return make_curriculum_policy(baseline, config.get("curriculum_config", {}))
+    if policy_kind == "curriculum" or policy_kind == "curriculum+regularized":
+        curriculum_config = dict(config.get("curriculum_config", {}))
+        if "sources" not in curriculum_config:
+            curriculum_config["sources"] = {eid: [] for eid in (episode_ids or [])}
+        if policy_kind == "curriculum":
+            return make_curriculum_policy(baseline, curriculum_config)
+        inner = make_regularized_policy(baseline, config.get("regularized_config", {}))
+        return make_curriculum_policy(inner, curriculum_config)
     if policy_kind == "regularized":
         return make_regularized_policy(baseline, config.get("regularized_config", {}))
-    if policy_kind == "curriculum+regularized":
-        inner = make_regularized_policy(baseline, config.get("regularized_config", {}))
-        return make_curriculum_policy(inner, config.get("curriculum_config", {}))
     raise ExperimentAbortError(f"未知 policy 组合: {policy_kind!r}")
 
 
@@ -49,7 +57,7 @@ def run_config_batch(config: dict, episode_set: dict, run_id: str) -> dict:
     """
     name = config.get("name", "<unnamed>")
     try:
-        policy = build_policy(config)
+        policy = build_policy(config, episode_ids=episode_set.get("episode_ids", []))
     except Exception as exc:
         raise ExperimentAbortError(f"配置 {name} 策略构造失败: {type(exc).__name__}: {exc}") from exc
 

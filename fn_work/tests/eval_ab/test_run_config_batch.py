@@ -132,3 +132,25 @@ def test_unknown_policy_kind_aborts(stub):
         run_config_batch({"name": "x", "policy": "SGD", "scene": "experiment",
                           "baseline_config": {}, "curriculum_config": {}, "regularized_config": {}},
                          EPISODE_SET, "run-5")
+
+
+def test_curriculum_sources_defaulted_from_episode_set(stub):
+    """课程配置缺 sources 时按局集合成源池（Ruling 2026-10-12），不再第一局即 CurriculumError。"""
+    from src.make_curriculum_policy.make_curriculum_policy import CurriculumPolicy
+
+    _queue(stub, [_result("GAME_OVER", 3), _result("GAME_OVER", 3)])
+    run_config_batch(_config(policy="curriculum", name="c-def"), EPISODE_SET, "run-def")
+
+    wrapper = stub["episodes"][-1][1]
+    assert isinstance(wrapper, CurriculumPolicy)
+    assert set(wrapper._source_history) == {"g1", "g2"}
+
+
+def test_explicit_sources_not_overridden(stub):
+    _queue(stub, [_result("GAME_OVER", 3), _result("GAME_OVER", 3)])
+    explicit = _config(policy="curriculum", name="c-exp")
+    explicit["curriculum_config"] = {"sources": {"demo-src": []}}
+
+    run_config_batch(explicit, EPISODE_SET, "run-exp")
+
+    assert set(stub["episodes"][-1][1]._source_history) == {"demo-src"}
